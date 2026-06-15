@@ -16,7 +16,7 @@ typedef struct
     float voltaje;
     float potencia;
     float capacidad_kWh;
-    float estado_carga
+    float estado_carga;
 } Componente;
 
 /*Lista para almacenar componentes*/
