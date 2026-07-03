@@ -37,3 +37,25 @@ Componente *Buscar_ComponenteID(ListaComponentes *lista, int id)
     }
     return NULL;
 }
+
+/*Obtener el nombre del componente*/
+const char *Buscar_ComponenteNombre(TipoComponente tipo)
+{
+    switch(tipo)
+    {
+    case panel_solar:
+        return "Panel Solar";
+
+    case bateria:
+        return "Bateria";
+
+    case carga:
+        return "Carga";
+
+    case controlador:
+        return "Controlador";
+    
+    default:
+        return "Desconocido";
+    }
+}

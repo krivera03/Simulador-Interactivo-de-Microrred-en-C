@@ -6,7 +6,7 @@ Una microrred es una red eléctrica pequeña que genera y distribuye energía a 
 
 El presente proyecto consiste en desarrollar una aplicación interactiva en lenguaje C que permita simular la construcción de una microrred eléctrica aislada mediante una interfaz. El usuario podrá seleccionar y conectar diferentes componentes eléctricos, mientra el sistema verifica si la configuración realizada es válida según criterios básicos de funcionamiento de una microrred. 
 
-### Archivos principales
+## Archivos principales
 
 - **main.c**: Contiene la función principal del programa y el menú de interacción.
 - **componentes.c / componentes.h**: Definición de las estructuras de los componentes y generación de la lista de componentes.
@@ -44,7 +44,7 @@ make valgrind
 Una vez compilado el proyecto, ejecutar:
 
 ```bash
-./simulador
+./microrred
 ```
 
 
