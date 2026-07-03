@@ -26,3 +26,14 @@ int AgregarComponentes(ListaComponentes *lista, TipoComponente tipo, float x, fl
 
     return nuevoComponente->id;
 }
+
+/*Buscar el componente por su id*/
+Componente *Buscar_ComponenteID(ListaComponentes *lista, int id) 
+{
+    for(int i = 0; i < lista->cuenta; i++)  /*Ciclo para recorrer la lista de componentes*/
+    {
+        if(lista->componentes[i].id == id)   /*Si el id solicitado coincide co el de la lista devuelve el componente*/
+            return &lista->componentes[i];
+    }
+    return NULL;
+}
