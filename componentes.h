@@ -31,6 +31,19 @@ typedef struct
     int cuenta;
 } ListaComponetes;
 
+/*Iniciar la lista de componentes*/
+void Iniciar_ListaComponentes(ListaComponentes *lista);
+
+/*Agrega los componentes a la lista*/
+int AgregarComponentes(ListaComponentes *lista, TipoComponente tipo, float x, float y, float voltaje, float potencia, float capacidad_kWh,
+                        float estado_carga);
+
+/*Buscar el componente por su id*/
+Componente *Buscar_ComponenteID(ListaComponentes *lista, int id) ;
+
+/*Obtener el nombre del componente*/
+const char *Buscar_ComponenteNombre(TipoComponente tipo);
+
 #endif
 
 
