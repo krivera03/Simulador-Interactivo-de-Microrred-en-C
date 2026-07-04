@@ -1,3 +1,5 @@
+#include "componentes.h"
+#include <stdio.h>
 
 /*Iniciar la lista de componentes*/
 void Iniciar_ListaComponentes(ListaComponentes *lista) {

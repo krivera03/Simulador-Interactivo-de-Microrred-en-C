@@ -1,3 +1,8 @@
+#ifndef COMPONENTES_H
+#define COMPONENTES_H
+
+#define MAX_COMPONENTES 20
+
 /*Estructura que define los componentes a utilizar*/
 typedef enum {
     panel_solar,
@@ -6,7 +11,7 @@ typedef enum {
     controlador
 }  TipoComponente;
 
-/*Estructura que almacena toda la informacíon necesaria de cada elemento*/
+/*Estructura que almacena toda la información necesaria de cada elemento*/
 typedef struct 
 {
     int id;
@@ -22,10 +27,10 @@ typedef struct
 /*Lista para almacenar componentes*/
 typedef struct 
 {
-    Componente componentes[20];
+    Componente componentes[MAX_COMPONENTES];
     int cuenta;
 } ListaComponetes;
 
-
+#endif
 
 
