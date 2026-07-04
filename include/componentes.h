@@ -24,7 +24,7 @@ typedef struct
 {
     Componente componentes[20];
     int cuenta;
-} ListaComponetes;
+} ListaComponentes;
 
 
 
