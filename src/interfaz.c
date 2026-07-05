@@ -65,13 +65,13 @@ static void DrawComponente(const Componente *componente) {
     DrawText(Buscar_ComponenteNombre(componente->tipo), (int)componente->x+5, (int)componente->y+HEIGHT/2, 18, RAYWHITE);
 
     char texto[96];
-    snprintf(texto, sizeof(texto), "%.0f Vdc", componente->voltajeDC);
+    snprintf(texto, sizeof(texto), "%.0fVdc", componente->voltajeDC);
     
     DrawText(texto, (int)componente->x+5 , (int)componente->y+20, 16, RAYWHITE);
     
-    snprintf(texto, sizeof(texto), "%.0f Vac", componente->voltajeAC);
+    snprintf(texto, sizeof(texto), "%.0fVac", componente->voltajeAC);
     
-    DrawText(texto, (int)componente->x+40 , (int)componente->y+20, 16, RAYWHITE);
+    DrawText(texto, (int)componente->x+WIDTH/2 , (int)componente->y+20, 16, RAYWHITE);
     switch (componente->tipo) {
     case 0: // panel_solar
         snprintf(texto, sizeof(texto), " %.0f W", componente->potencia);
@@ -252,8 +252,8 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             if (componente->y < 0.0f) {
                 componente->y = 0.0f;
             }
-            if (componente->x > 805.0f-WIDTH) {
-                componente->x = 805.0f-WIDTH;
+            if (componente->x > 805.0f-WIDTH+220.0f) {
+                componente->x = 805.0f-WIDTH+220.0f;
             }
             if (componente->y > 700.0f-HEIGHT) {
                 componente->y = 700.0f-HEIGHT;
