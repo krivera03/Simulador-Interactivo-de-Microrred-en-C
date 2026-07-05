@@ -406,7 +406,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar");
 
     //DrawRectangleRounded((Rectangle){1200-130-25, 50*4, 130, 500-50}, 0.12f, 8, LIGHTGRAY); //Quiero hace un panel para editar parametros del componente
-    DrawRectangle((Rectangle){220, 600,805, 105}, 0.12f, 8, LIGHTGRAY);
+    DrawRectangleRec((Rectangle){220, 600,805, 105}, 0.12f, 8, LIGHTGRAY);
     DrawText("Resultado:", 220+100, 600 + 25, 18, DARKBLUE);
 
     //Implementar pestaña de resultados de validacion y simulacion
