@@ -78,6 +78,8 @@ static void DrawComponente(const Componente *componente) {
         break;
     case 1: // bateria
         snprintf(texto, sizeof(texto), "SOC: %.0f%%", componente->estado_carga);
+        DrawText(texto, (int)componente->x+WIDTH/2, (int)componente->y+60, 16, RAYWHITE);
+        snprintf(texto, sizeof(texto), "Cap: %.0f Ah", componente->capacidad_Ah);
         break;
     case 2: // carga    
         snprintf(texto, sizeof(texto), "%.0f W", componente->potencia);
@@ -211,15 +213,15 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     }
 
     if (LeftClick(btnControlador)) {
-        AgregarComponentes(componentesID, controlador, mouse.x, mouse.y, 12, 120, 500, 0, 0, -1, -1);
+        AgregarComponentes(componentesID, controlador, mouse.x, mouse.y, 12, 0, 500, 0, 0, -1, -1);
     }
 
     if (LeftClick(btnBateria)) {
-        AgregarComponentes(componentesID, bateria, mouse.x, mouse.y, 12, 0, 5, 2.2, 0, -1, -1);
+        AgregarComponentes(componentesID, bateria, mouse.x, mouse.y, 12, 0, 12*2.2, 2.2, 50, -1, -1);
     }
 
     if (LeftClick(btnCarga)) {
-        AgregarComponentes(componentesID, carga, mouse.x, mouse.y, 120, 60, 0, 0, 0, -1, -1);
+        AgregarComponentes(componentesID, carga, mouse.x, mouse.y, 0, 120, 60, 0, 0, -1, -1);
     }
     if (LeftClick(btnConvertidor)) {
         AgregarComponentes(componentesID, convertidor, mouse.x, mouse.y, 12, 120, 500, 0, 0, -1, -1);
