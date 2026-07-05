@@ -5,8 +5,8 @@
 #include "interfaz.h"
 
 int main(void){   
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = 1200;
+    const int screenHeight = 800;
 
     ListaComponentes componentes;
     
