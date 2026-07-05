@@ -114,11 +114,11 @@ static void DrawPanelComponentes(void) {
 
     //DrawText("MVP:", 28, 390, 18, DARKBLUE);
 
-    DrawText("Arrastre los bloques", 28, 420, 16, DARKGRAY);
-    DrawText("y presione validar", 28, 420+16*1, 16, DARKGRAY);
-    DrawText("o simular.", 28, 420+16*2, 16, DARKGRAY);
-    DrawText("Click derecho", 28, 420+16*3, 16, DARKGRAY);
-    DrawText("para eliminar", 28, 420+16*4, 16, DARKGRAY); 
+    DrawText("Arrastre los bloques", 28, 600, 16, DARKGRAY);
+    DrawText("y presione validar", 28, 600+16*1, 16, DARKGRAY);
+    DrawText("o simular.", 28, 600+16*2, 16, DARKGRAY);
+    DrawText("Click derecho", 28, 600+16*3, 16, DARKGRAY);
+    DrawText("para eliminar", 28, 600+16*4, 16, DARKGRAY); 
 }
 
 
@@ -235,17 +235,17 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             componente->x = mouse.x - state->desplazamiento_x;
             componente->y = mouse.y - state->desplazamiento_y;
             // limites de pantalla para que no se salga de la zona de trabajo
-            if (componente->x < 180.0f) {
-                componente->x = 180.0f;
+            if (componente->x < 180.0f+WIDTH/2) {
+                componente->x = 180.0f+WIDTH/2;
             }
             if (componente->y < 0.0f) {
                 componente->y = 0.0f;
             }
-            if (componente->x > 1000.0f) {
-                componente->x = 1000.0f;
+            if (componente->x > 1000.0f-WIDTH) {
+                componente->x = 1000.0f-WIDTH;
             }
-            if (componente->y > 700.0f) {
-                componente->y = 700.0f;
+            if (componente->y > 700.0f-HEIGHT) {
+                componente->y = 700.0f-HEIGHT;
             }
         }
     }
