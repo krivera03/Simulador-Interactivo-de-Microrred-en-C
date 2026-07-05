@@ -59,11 +59,11 @@ static void DrawComponente(const Componente *componente) {
     DrawRectangleRounded(rect, 0.15f, 10, color);
     //DrawRectangleLinesEx(rect, seleccionado ? 4.0f : 2.0f, seleccionado ? RED : DARKGRAY);
 
-    DrawText(Buscar_ComponenteNombre(componente->tipo), (int)componente->x, (int)componente->y + 20, 18, DARKBLUE);
+    DrawText(Buscar_ComponenteNombre(componente->tipo), (int)componente->x, (int)componente->y -35, 18, DARKGRAY);
 
     char texto[96];
     snprintf(texto, sizeof(texto), "V: %.0f V", componente->voltaje);
-    DrawText(texto, (int)componente->x , (int)componente->y, 16, DARKBLUE);
+    DrawText(texto, (int)componente->x , (int)componente->y-55, 16, DARKGRAY);
     switch (componente->tipo) {
     case 0: // panel_solar
         snprintf(texto, sizeof(texto), "P gen: %.0f W", componente->potencia);
@@ -82,7 +82,7 @@ static void DrawComponente(const Componente *componente) {
         snprintf(texto, sizeof(texto), "Desconocido");
     }
 
-    DrawText(texto, (int)componente->x, (int)componente->y-20, 16, DARKBLUE);
+    DrawText(texto, (int)componente->x, (int)componente->y-75, 16, DARKGRAY);
 }
 
 
