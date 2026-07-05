@@ -266,6 +266,8 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         }
 
     state->arrastrando_linea = 0;
+    state->dibujando = 0;
+    printf("Dibujando desactivado\n");
     }
     ////////////////////////////////////       
     if (LeftClick(btnPanel)) {
@@ -306,7 +308,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         }
     }
 
-    if (state->arrastrando && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+    if (state->arrastrando || state->arrastrando_linea) && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
         Componente *componente = Buscar_ComponenteID(componentesID, state->componente_seleccionado);
         if (componente != NULL) {
             ///////////////////////////////////////
