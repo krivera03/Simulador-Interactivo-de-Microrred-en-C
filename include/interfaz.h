@@ -2,6 +2,7 @@
 #define INTERFAZ_H
 #include "raylib.h"
 #include "componentes.h"
+#include <stdio.h>
 typedef struct {
 
     int selected_component_id;
