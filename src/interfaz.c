@@ -39,15 +39,19 @@ static Rectangle Componente_Rect(const Componente *componente) {//retorna el rec
     return rect;
 }
 
-static void DrawBoton(Rectangle rect, const char *text, Color color) { //Crea botones para validar, simular y reiniciar
+static void DrawBoton(Rectangle rect, const char *text, Color color, Color textColor) { //Crea botones para validar, simular y reiniciar
     Vector2 mouse = GetMousePosition();
     int lo_toca = CheckCollisionPointRec(mouse, rect);
-   
-    DrawRectangleRounded(rect, 0.18f, 8, lo_toca ? SKYBLUE : color); //debe
-    DrawRectangleLinesEx(rect, 2.0f, DARKGRAY);
-    DrawText(text, (int)rect.x+15 , (int)rect.y+15, 20, DARKBLUE);
-
-
+    if (color ==LIGHTGRAY) {
+        DrawRectangleRounded(rect, 0.18f, 8, lo_toca ? SKYBLUE : color); //debe
+        DrawRectangleLinesEx(rect, 2.0f, DARKGRAY);
+        DrawText(text, (int)rect.x+15 , (int)rect.y+15, 20, textColor);
+    }
+    else {
+        DrawRectangleRounded(rect, 0.18f, 8, lo_toca ? color = (Color){color.r+50, color.g+50, color.b+50, 255}; : color); //debe
+        DrawText(text, (int)rect.x+10 , (int)rect.y+13, 20, textColor);
+    }
+    
 }
 
 static int LeftClick(Rectangle rect) {
@@ -108,22 +112,22 @@ static void DrawPanelComponentes(void) {
     DrawText("Microrred", 28, 25, 30, DARKBLUE);
     DrawText("Componentes", 28, 75, 20, DARKGRAY);
 
-    DrawBoton((Rectangle){25, 115, 170, 45}, "Panel solar" , (Color){255, 209, 102, 255});
+    DrawBoton((Rectangle){25, 115, 170, 45}, "Panel solar" , (Color){255, 209, 102, 255}, DARKBLUE);
     //DrawText("Panel solar", 45, 128, 18, DARKBLUE);
 
-    DrawBoton((Rectangle){25, 175, 170, 45}, "Controlador" , (Color){17, 138, 178, 255});
+    DrawBoton((Rectangle){25, 175, 170, 45}, "Controlador" , (Color){17, 138, 178, 255}, RAYWHITE);
     //DrawText("Controlador", 45, 188, 18, RAYWHITE);
 
-    DrawBoton((Rectangle){25, 235, 170, 45}, "Bateria" , (Color){6, 214, 160, 255});
+    DrawBoton((Rectangle){25, 235, 170, 45}, "Bateria" , (Color){6, 214, 160, 255}, DARKBLUE);
     //DrawText("Bateria", 45, 248, 18, DARKBLUE);
 
-    DrawBoton((Rectangle){25, 295, 170, 45}, "Carga" , (Color){239, 71, 111, 255});
+    DrawBoton((Rectangle){25, 295, 170, 45}, "Carga" , (Color){239, 71, 111, 255}, RAYWHITE);
     //DrawText("Carga", 45, 308, 18, RAYWHITE);
 
-    DrawBoton((Rectangle){25, 355, 170, 45}, "Convertidor" , (Color){239, 138, 102, 255});
+    DrawBoton((Rectangle){25, 355, 170, 45}, "Convertidor" , (Color){239, 138, 102, 255}, DARKBLUE);
     //DrawText("Convertidor", 45, 368, 18, DARKBLUE);
 
-    DrawBoton((Rectangle){25, 415, 170, 45}, "Dibujar" , (Color){200, 200, 200, 255});
+    DrawBoton((Rectangle){25, 415, 170, 45}, "Dibujar" , RAYWHITE, DARKBLUE);
     //DrawText("Dibujar", 45, 428, 18, RAYWHITE);
 
     //DrawText("MVP:", 28, 390, 18, DARKBLUE);
@@ -410,9 +414,9 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     }
 
     //////////////////////////////////
-    DrawBoton((Rectangle){1200-130-25, 50, 130, 50}, "Validar", LIGHTGRAY);
-    DrawBoton((Rectangle){1200-130-25, 50*2, 130, 50}, "Simular", LIGHTGRAY);
-    //DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar", LIGHTGRAY);
+    DrawBoton((Rectangle){1200-130-25, 50, 130, 50}, "Validar", LIGHTGRAY, DARKBLUE);
+    DrawBoton((Rectangle){1200-130-25, 50*2, 130, 50}, "Simular", LIGHTGRAY, DARKBLUE);
+    //DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar", LIGHTGRAY, DARKBLUE);
 
     //DrawRectangleRounded((Rectangle){1200-130-25, 50*4, 130, 500-50}, 0.12f, 8, LIGHTGRAY); //Quiero hace un panel para editar parametros del componente
     DrawRectangleRec((Rectangle){220, 600,805, 80}, LIGHTGRAY);
