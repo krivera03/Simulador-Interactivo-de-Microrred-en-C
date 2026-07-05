@@ -138,7 +138,7 @@ static int ObtenerComponenteBajoMouse(const ListaComponentes *lista) {
 
     for (int i = 0; i < lista->cuenta; i++) {
         Rectangle bounds = Componente_Rect(&lista->componentes[i]);
-        printf("Tipo de componente: %d, ID: %d, x: %.2f, y: %.2f\n", lista->componentes[i].tipo, lista->componentes[i].id, lista->componentes[i].x, lista->componentes[i].y);
+        //printf("Tipo de componente: %d, ID: %d, x: %.2f, y: %.2f\n", lista->componentes[i].tipo, lista->componentes[i].id, lista->componentes[i].x, lista->componentes[i].y);
         if (CheckCollisionPointRec(mouse, bounds)) {
             return lista->componentes[i].id;
         }
@@ -210,9 +210,10 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     }
 
     if (LeftClick(boton_reiniciar)) {
-        IState_Init(state);
-        Iniciar_ListaComponentes(&componentesID);
-        Iniciar_ListaConexiones(&conexionesID);
+        for (int i = 0; i < componentesID->cuenta; i++) {
+            componentesID->componentes[i]= (Componente){0}; // Reinicia cada componente a un estado predeterminado
+            conexionesID->conexiones[i]= (Conexion){0}; // Reinicia cada conexion a un estado predeterminado
+        }
     }
  
     Vector2 mouse = GetMousePosition();
@@ -231,12 +232,12 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         state->dibujando = !state->dibujando;
 
         if (state->dibujando) {
-            printf("Dibujando activado\n");
+            //printf("Dibujando activado\n");
             }
         else {
             state->arrastrando_linea = 0;
             state->desdeID = -1;
-            printf("Dibujando desactivado\n");
+            //printf("Dibujando desactivado\n");
         }
     }
     if (state->dibujando && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !state->arrastrando_linea) {
@@ -246,7 +247,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         if (id != -1) {
             state->desdeID = id;
             state->arrastrando_linea = 1;
-            printf("Inicio conexion desde %d\n", id);
+            //printf("Inicio conexion desde %d\n", id);
     }
 }
 
@@ -256,7 +257,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
 
         if (id != -1 && id != state->desdeID) {
             AgregarConexiones(conexionesID, state->desdeID, id);
-            printf("Conexion creada: %d -> %d\n", state->desdeID, id);
+            //printf("Conexion creada: %d -> %d\n", state->desdeID, id);
             
         }
         state->arrastrando_linea = 0;
