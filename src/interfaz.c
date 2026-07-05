@@ -1,7 +1,7 @@
 #include "componentes.h"
 #include "conexiones.h"
 #include "interfaz.h"
-#define WIDTH 120
+#define WIDTH 130
 #define HEIGHT 80
 
 
@@ -79,7 +79,7 @@ static void DrawComponente(const Componente *componente) {
     case 1: // bateria
         snprintf(texto, sizeof(texto), "SOC: %.0f%%", componente->estado_carga);
         DrawText(texto, (int)componente->x+WIDTH/2-5, (int)componente->y+60, 16, RAYWHITE);
-        snprintf(texto, sizeof(texto), "%.2f Ah", componente->capacidad_Ah);
+        snprintf(texto, sizeof(texto), "%.1f Ah", componente->capacidad_Ah);
         break;
     case 2: // carga    
         snprintf(texto, sizeof(texto), "%.0f W", componente->potencia);
@@ -132,6 +132,42 @@ static void DrawPanelComponentes(void) {
     DrawText("Click derecho", 28, 500+16*3, 16, DARKGRAY);
     DrawText("para eliminar", 28, 500+16*4, 16, DARKGRAY); 
 }
+
+static int ObtenerComponenteBajoMouse(const ListaComponentes *lista) {
+    Vector2 mouse = GetMousePosition();
+
+    for (int i = 0; i < lista->cuenta; i++) {
+        Rectangle bounds = Componente_Rect(&lista->componentes[i]);
+        printtf("Tipo de componente: %d, ID: %d, x: %.2f, y: %.2f\n", lista->componentes[i].tipo, lista->componentes[i].id, lista->componentes[i].x, lista->componentes[i].y);
+        if (CheckCollisionPointRec(mouse, bounds)) {
+            return lista->componentes[i].id;
+        }
+    }
+
+    return -1;
+}
+
+
+
+static void DrawConexion(const ListaComponentes *listacomp, const ListaConexiones *listaconx) { //Dibuja conexion entre dos elementos, ahora ver como detectar que quiero una conexion
+    for (int i = 0; i < listaconx->cuenta; i++) {
+        const Componente *terminal1 = ComponentList_FindByIdConst(listacomp, listaconx->conexiones[i].origenID);
+        const Componente *terminal2 = ComponentList_FindByIdConst(listacomp, listaconx->conexiones[i].destinoID);
+
+        if (terminal1 == NULL || terminal2 == NULL) {
+            continue;
+        }
+
+        Vector2 a = Component_GetCenter(terminal1);
+        Vector2 b = Component_GetCenter(terminal2);
+        DrawLineEx(a, b, 4.0f, DARKGRAY);
+        DrawCircleV(a, 5.0f, DARKGRAY);
+        DrawCircleV(b, 5.0f, DARKGRAY);
+    }
+}
+
+
+
 
 
 void IState_Init(IState *state) {
@@ -195,19 +231,40 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     Rectangle btnBateria = {25, 235, 170, 45};
     Rectangle btnCarga = {25, 295, 170, 45};
     Rectangle btnConvertidor = {25, 355, 170, 45};
+    ///////////////////////////////////////////////////////
     Rectangle btnDibujar = {25, 415, 170, 45};
+
     if (LeftClick(btnDibujar)) {
-        printf("Dibujar\n");
-        state->dibujando = 1;
-        if (state->dibujando) {
+        state->dibujando = !state->dibujando;
+
+        if (state->dibujando)
             printf("Dibujando activado\n");
-            if (LeftClick(btnDibujar)) {
-                state->dibujando = 0;
-                printf("Dibujando desactivado\n");
-            }
-                            }
-                        }
-                        
+        else
+            printf("Dibujando desactivado\n");
+    }
+    if (state->dibujando && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+
+        int id = ObtenerComponenteBajoMouse(componentes);
+
+        if (id != -1) {
+            state->origenID = id;
+            state->arrastrando = 1;
+            printf("Inicio conexion desde %d\n", id);
+        }
+    }   
+       
+    if (state->arrastrando && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
+
+    int id = ObtenerComponenteBajoMouse(componentes);
+
+    if (id != -1 && id != state->origenID) {
+        AgregarConexiones(conexiones, state->origenID, id);
+        printf("Conexion creada: %d -> %d\n", state->origenID, id);
+    }
+
+    state->arrastrando = 0;
+    }
+    ////////////////////////////////////       
     if (LeftClick(btnPanel)) {
         AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 0, 30, 0, 0, -1, -1);
     }
@@ -309,7 +366,20 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
         //int componente_seleccionado = componentesID->componentes[i].id == state->componente_seleccionado;
         DrawComponente(&componentesID->componentes[i]);
     }
+///////////////////////////////////////////////////////////
+    DrawConexion(componentesID, conexionesID);
+    if (state->arrastrando) {
+        const Componente *origen = Buscar_ComponenteID(componentes, state->origenID);
 
+        if (origen) {
+            Vector2 a = Centro_Componente(origen);
+            Vector2 mouse = GetMousePosition();
+
+            DrawLineEx(a, mouse, 2.0f, RED); // preview
+        }
+    }
+
+    ////////////////////////////////
     DrawBoton((Rectangle){1200-130-25, 50, 130, 50}, "Validar");
     DrawBoton((Rectangle){1200-130-25, 50*2, 130, 50}, "Simular");
     DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar");

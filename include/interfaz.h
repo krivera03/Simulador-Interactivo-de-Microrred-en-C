@@ -13,6 +13,8 @@ typedef struct {
     int estado_validacion;
     int estado_simulacion;
     int dibujando;
+    int desdeID;
+    int hastaID;
 } IState; // Es la estructura que almacena estado de la interfaz
 
 void IState_Init(IState *state);
