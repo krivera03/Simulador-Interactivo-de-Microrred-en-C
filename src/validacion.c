@@ -18,6 +18,24 @@ static int TensionesCompatibles(float v1, float v2)
     return (diferencia / referencia) <= 0.05f;
 }
 
+static Componente *BuscarComponentePorTipo(ListaComponentes *componentes,
+                                           TipoComponente tipo)
+{
+    for (int i = 0; i < componentes->cuenta; i++) {
+        if (componentes->componentes[i].tipo == tipo) {
+            return &componentes->componentes[i];
+        }
+    }
+
+    return 0;
+}
+
+static int ExisteConexionEntre(ListaConexiones *conexiones, int idA, int idB)
+{
+    return ExisteConexion(conexiones, idA, idB) ||
+           ExisteConexion(conexiones, idB, idA);
+}
+
 ResultadoValidacion ValidarMicrorred(ListaComponentes *componentes,
                                      ListaConexiones *conexiones)
 {
@@ -42,10 +60,10 @@ ResultadoValidacion ValidarMicrorred(ListaComponentes *componentes,
         return resultado;
     }
 
-    Componente *solar = Buscar_ComponenteTipo(componentes, panel_solar);
-    Componente *bat = Buscar_ComponenteTipo(componentes, bateria);
-    Componente *load = Buscar_ComponenteTipo(componentes, carga);
-    Componente *ctrl = Buscar_ComponenteTipo(componentes, controlador);
+    Componente *solar = BuscarComponentePorTipo(componentes, panel_solar);
+    Componente *bat = BuscarComponentePorTipo(componentes, bateria);
+    Componente *load = BuscarComponentePorTipo(componentes, carga);
+    Componente *ctrl = BuscarComponentePorTipo(componentes, controlador);
 
     if (solar == 0) {
         snprintf(resultado.mensaje,
@@ -75,45 +93,45 @@ ResultadoValidacion ValidarMicrorred(ListaComponentes *componentes,
         return resultado;
     }
 
-    if (!ExisteConexionBidireccional(conexiones, solar->id, ctrl->id)) {
+    if (!ExisteConexionEntre(conexiones, solar->id, ctrl->id)) {
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_VALIDACION,
                  "Error: el panel solar debe estar conectado al controlador.");
         return resultado;
     }
 
-    if (!ExisteConexionBidireccional(conexiones, ctrl->id, bat->id)) {
+    if (!ExisteConexionEntre(conexiones, ctrl->id, bat->id)) {
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_VALIDACION,
                  "Error: la bateria debe estar conectada al controlador.");
         return resultado;
     }
 
-    if (!ExisteConexionBidireccional(conexiones, ctrl->id, load->id)) {
+    if (!ExisteConexionEntre(conexiones, ctrl->id, load->id)) {
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_VALIDACION,
                  "Error: la carga debe estar conectada al controlador.");
         return resultado;
     }
 
-    if (!TensionesCompatibles(solar->voltaje, ctrl->voltaje)) {
+    if (!TensionesCompatibles(solar->voltajeDC, ctrl->voltajeDC)) {
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_VALIDACION,
-                 "Error: la tension del panel solar no es compatible con el controlador.");
+                 "Error: la tension DC del panel solar no es compatible con el controlador.");
         return resultado;
     }
 
-    if (!TensionesCompatibles(bat->voltaje, ctrl->voltaje)) {
+    if (!TensionesCompatibles(bat->voltajeDC, ctrl->voltajeDC)) {
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_VALIDACION,
-                 "Error: la tension de la bateria no es compatible con el controlador.");
+                 "Error: la tension DC de la bateria no es compatible con el controlador.");
         return resultado;
     }
 
-    if (!TensionesCompatibles(load->voltaje, ctrl->voltaje)) {
+    if (!TensionesCompatibles(load->voltajeDC, ctrl->voltajeDC)) {
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_VALIDACION,
-                 "Error: la tension de la carga no es compatible con el controlador.");
+                 "Error: la tension DC de la carga no es compatible con el controlador.");
         return resultado;
     }
 
@@ -127,7 +145,7 @@ ResultadoValidacion ValidarMicrorred(ListaComponentes *componentes,
     resultado.valido = 1;
     snprintf(resultado.mensaje,
              TAMANO_MENSAJE_VALIDACION,
-             "Sistema valido: componentes, conexiones, tension y potencia compatibles.");
+             "Sistema valido: componentes, conexiones, tension DC y potencia compatibles.");
 
     return resultado;
 }
