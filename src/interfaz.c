@@ -138,7 +138,7 @@ static int ObtenerComponenteBajoMouse(const ListaComponentes *lista) {
 
     for (int i = 0; i < lista->cuenta; i++) {
         Rectangle bounds = Componente_Rect(&lista->componentes[i]);
-        printtf("Tipo de componente: %d, ID: %d, x: %.2f, y: %.2f\n", lista->componentes[i].tipo, lista->componentes[i].id, lista->componentes[i].x, lista->componentes[i].y);
+        printf("Tipo de componente: %d, ID: %d, x: %.2f, y: %.2f\n", lista->componentes[i].tipo, lista->componentes[i].id, lista->componentes[i].x, lista->componentes[i].y);
         if (CheckCollisionPointRec(mouse, bounds)) {
             return lista->componentes[i].id;
         }
@@ -151,8 +151,8 @@ static int ObtenerComponenteBajoMouse(const ListaComponentes *lista) {
 
 static void DrawConexion(const ListaComponentes *listacomp, const ListaConexiones *listaconx) { //Dibuja conexion entre dos elementos, ahora ver como detectar que quiero una conexion
     for (int i = 0; i < listaconx->cuenta; i++) {
-        const Componente *terminal1 = ComponentList_FindByIdConst(listacomp, listaconx->conexiones[i].origenID);
-        const Componente *terminal2 = ComponentList_FindByIdConst(listacomp, listaconx->conexiones[i].destinoID);
+        const Componente *terminal1 = Buscar_ComponenteID(listacomp, listaconx->conexiones[i].origenID);
+        const Componente *terminal2 = Buscar_ComponenteID(listacomp, listaconx->conexiones[i].destinoID);
 
         if (terminal1 == NULL || terminal2 == NULL) {
             continue;
