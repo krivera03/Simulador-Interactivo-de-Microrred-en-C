@@ -28,8 +28,8 @@ static Color Componente_Color(TipoComponente tipo) {
 
 static Rectangle Componente_Rect(const Componente *componente) {//retorna el rectángulo del componente
     Rectangle rect;
-    rect.x = componente->x - WIDTH / 2.0f; 
-    rect.y = componente->y  + HEIGHT / 2.0f; // xy sera del centro, el rectangulo se dibuja desde la esquina superior izquierda, por eso se resta la mitad del ancho y se suma la mitad de la altura
+    rect.x = componente->x ; 
+    rect.y = componente->y ; // xy sera del centro, el rectangulo se dibuja desde la esquina superior izquierda, por eso se resta la mitad del ancho y se suma la mitad de la altura
     rect.width = WIDTH;
     rect.height = HEIGHT;
     
@@ -72,7 +72,7 @@ static void DrawComponente(const Componente *componente) {
         snprintf(texto, sizeof(texto), "SOC: %.0f%%", componente->estado_carga);
         break;
     case 2: // carga    
-        snprintf(texto, sizeof(texto), "Carga: %.0f W", componente->potencia);
+        snprintf(texto, sizeof(texto), "%.0f W", componente->potencia);
         break;
     case 3: // controlador
         snprintf(texto, sizeof(texto), "Bat Load");
