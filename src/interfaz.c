@@ -91,16 +91,16 @@ static void DrawPanelComponentes(void) {
     DrawText("Microrred", 28, 25, 30, DARKBLUE);
     DrawText("Componentes", 28, 75, 20, DARKGRAY);
 
-    DrawRectangleRounded((Rectangle){25, 115, 180, 45}, 0.15f, 8, (Color){255, 209, 102, 255});
+    DrawRectangleRounded((Rectangle){25, 115, 170, 45}, 0.15f, 8, (Color){255, 209, 102, 255});
     DrawText("Panel solar", 45, 128, 18, DARKBLUE);
 
-    DrawRectangleRounded((Rectangle){25, 175, 180, 45}, 0.15f, 8, (Color){17, 138, 178, 255});
+    DrawRectangleRounded((Rectangle){25, 175, 170, 45}, 0.15f, 8, (Color){17, 138, 178, 255});
     DrawText("Controlador", 45, 188, 18, RAYWHITE);
 
-    DrawRectangleRounded((Rectangle){25, 235, 180, 45}, 0.15f, 8, (Color){6, 214, 160, 255});
+    DrawRectangleRounded((Rectangle){25, 235, 170, 45}, 0.15f, 8, (Color){6, 214, 160, 255});
     DrawText("Bateria", 45, 248, 18, DARKBLUE);
 
-    DrawRectangleRounded((Rectangle){25, 295, 180, 45}, 0.15f, 8, (Color){239, 71, 111, 255});
+    DrawRectangleRounded((Rectangle){25, 295, 170, 45}, 0.15f, 8, (Color){239, 71, 111, 255});
     DrawText("Carga", 45, 308, 18, RAYWHITE);
 
     //DrawText("MVP:", 28, 390, 18, DARKBLUE);
@@ -262,7 +262,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
    // DrawText("Simulador Interactivo de Microrred en C", 260, 25, 28, DARKBLUE);
     //DrawText("Sistema base: panel solar + controlador + bateria + carga", 260, 62, 18, DARKGRAY);
 
-    DrawRectangleLinesEx((Rectangle){200, 0, 845, 700}, 4.0f, LIGHTGRAY);
+    DrawRectangleLinesEx((Rectangle){220, 0, 805, 700}, 4.0f, LIGHTGRAY);
     DrawText("Area de trabajo", 240, 30, 18, GRAY);
 
     // Agregar funcion para dibujar conexiones entre componentes
