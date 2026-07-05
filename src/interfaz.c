@@ -210,9 +210,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     }
 
     if (LeftClick(boton_reiniciar)) {
-        state->estado_validacion = 0;
-        state->estado_simulacion = 0;
-        state->componente_id = -1;
+        IState_Init(state);
         Iniciar_ListaComponentes(&componentesID);
         Iniciar_ListaConexiones(&conexionesID);
     }
