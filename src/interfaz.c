@@ -138,7 +138,7 @@ static int ObtenerComponenteBajoMouse(const ListaComponentes *lista) {
 
     for (int i = 0; i < lista->cuenta; i++) {
         Rectangle bounds = Componente_Rect(&lista->componentes[i]);
-        //printf("Tipo de componente: %d, ID: %d, x: %.2f, y: %.2f\n", lista->componentes[i].tipo, lista->componentes[i].id, lista->componentes[i].x, lista->componentes[i].y);
+        printf("Tipo de componente: %d, ID: %d, x: %.2f, y: %.2f\n", lista->componentes[i].tipo, lista->componentes[i].id, lista->componentes[i].x, lista->componentes[i].y);
         if (CheckCollisionPointRec(mouse, bounds)) {
             return lista->componentes[i].id;
         }
@@ -211,8 +211,8 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
 
     if (LeftClick(boton_reiniciar)) {
         for (int i = 0; i < componentesID->cuenta; i++) {
-            componentesID->componentes[i]= (Componente){0}; // Reinicia cada componente a un estado predeterminado
-            conexionesID->conexiones[i]= (Conexion){0}; // Reinicia cada conexion a un estado predeterminado
+            componentesID->componentes[i]= (Componente){-1}; // Reinicia cada componente a un estado predeterminado
+            conexionesID->conexiones[i]= (Conexion){-1}; // Reinicia cada conexion a un estado predeterminado
         }
     }
  
@@ -406,16 +406,16 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar");
 
     //DrawRectangleRounded((Rectangle){1200-130-25, 50*4, 130, 500-50}, 0.12f, 8, LIGHTGRAY); //Quiero hace un panel para editar parametros del componente
-    DrawRectangleRounded((Rectangle){130+25, 500,1200-130-25, 200}, 0.12f, 8, LIGHTGRAY);
-    DrawText("Resultado:", 130+25, 500 + 25, 18, DARKBLUE);
+    DrawRectangle((Rectangle){220, 600,805, 105}, 0.12f, 8, LIGHTGRAY);
+    DrawText("Resultado:", 220+100, 600 + 25, 18, DARKBLUE);
 
     //Implementar pestaña de resultados de validacion y simulacion
     if (state->estado_simulacion) {
-        DrawText(state->resultado_simulacion.mensaje, 130+25, 500 + 25*3, 13, state->resultado_simulacion.exitosa ? DARKGREEN : RED);
+        DrawText(state->resultado_simulacion.mensaje, 220+200, 600 + 25, 16, state->resultado_simulacion.exitosa ? DARKGREEN : RED);
     } else if (state->estado_validacion) {
-        DrawText(state->resultado_validacion.mensaje, 130+25, 500 + 25*3, 13, state->resultado_validacion.valido ? DARKGREEN : RED);
+        DrawText(state->resultado_validacion.mensaje, 220+200, 600 + 25, 16, state->resultado_validacion.valido ? DARKGREEN : RED);
     } else {
-        DrawText("Presione Validar o Simular.", 130+25, 500 + 25*3, 13, DARKGRAY);
+        DrawText("Presione Validar o Simular.", 220+200, 600 + 25, 16, DARKGRAY);
     }
     EndDrawing();
 }
