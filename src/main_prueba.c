@@ -4,7 +4,7 @@
 #include "componentes.h"
 #include "interfaz.h"
 
-void main(void){   
+int main(void){   
     const int screenWidth = 800;
     const int screenHeight = 450;
 
@@ -23,4 +23,5 @@ void main(void){
     }
 
     CloseWindow();
+    return 0;
 }

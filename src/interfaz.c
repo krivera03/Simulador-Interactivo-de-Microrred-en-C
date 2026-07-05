@@ -221,7 +221,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
 
     // Agregar funcion para dibujar conexiones entre componentes
 
-    for (int i = 0; i < componentesID->count; i++) {
+    for (int i = 0; i < componentesID->cuenta; i++) {
         int componente_seleccionado = componentesID->componentes[i].id == state->componente_seleccionado;
         DrawComponente(&componentesID->componentes[i], componente_seleccionado);
     }

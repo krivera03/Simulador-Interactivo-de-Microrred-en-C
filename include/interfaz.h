@@ -14,7 +14,7 @@ typedef struct {
 } IState; // Es la estructura que almacena estado de la interfaz
 
 void IState_Init(IState *state);
-void I_Update(IState *state, ListaComponetes *componentes);
-void I_Draw(const IState *state, const ListaComponetes *componentes);
+void I_Update(IState *state, ListaComponentes *componentes);
+void I_Draw(const IState *state, const ListaComponentes *componentes);
 
 #endif 
