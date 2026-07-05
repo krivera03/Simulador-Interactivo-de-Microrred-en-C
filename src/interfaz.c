@@ -226,7 +226,7 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
     if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
         state->arrastrando = 0;
     }
-}
+
     if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) {
         for (int i = componentesID->cuenta - 1; i >= 0; i--) {
             Componente *componente = &componentesID->componentes[i];
@@ -242,6 +242,9 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
             }
         }
     }
+
+}
+
 
 
 void I_Draw(const IState *state, const ListaComponentes *componentesID) {
