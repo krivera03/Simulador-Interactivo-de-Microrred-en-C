@@ -256,7 +256,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         }
     }   
 
-    if (state->arrastrando_linea && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
+    if (state->arrastrando_linea && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 
         int id = ObtenerComponenteBajoMouse(componentesID);
 
@@ -382,7 +382,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     }
 ////////////////////////////////////
     DrawConexion(componentesID, conexionesID);
-    if (state->arrastrando_linea) {
+    if (state->arrastrando_linea && state->dibujando) {
         const Componente *origen = Buscar_ComponenteID(componentesID, state->desdeID);
 
         if (origen) {
