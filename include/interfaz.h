@@ -26,6 +26,6 @@ typedef struct {
 
 void IState_Init(IState *state);
 void I_Update(IState *state, ListaComponentes *componentes, ListaConexiones *conexiones);
-void I_Draw(const IState *state, const ListaComponentes *componentes, const ListaConexiones *conexiones);
+void I_Draw( IState *state,  ListaComponentes *componentes,  ListaConexiones *conexiones);
 
 #endif 
