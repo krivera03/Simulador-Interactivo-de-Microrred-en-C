@@ -135,12 +135,12 @@ static void DrawPanelComponentes(void) {
 
     //DrawText("MVP:", 28, 390, 18, DARKBLUE);
     DrawText("Presione Dibujar para", 28, 500, 16, DARKGRAY);
-    DrawText("conectar componentes", 28, 500+16*1, 16, DARKGRAY);
-    DrawText("Arrastre los bloques", 28, 500+16*2, 16, DARKGRAY);
-    DrawText("y presione validar", 28, 500+16*3, 16, DARKGRAY);
-    DrawText("o simular.", 28, 500+16*4, 16, DARKGRAY);
-    DrawText("Click derecho", 28, 500+16*5, 16, DARKGRAY);
-    DrawText("para eliminar", 28, 500+16*6, 16, DARKGRAY); 
+    DrawText("conectar componentes.", 28, 500+16*1, 16, DARKGRAY);
+    DrawText("Arrastre los bloques", 28, 500+16*2+10, 16, DARKGRAY);
+    DrawText("y presione validar", 28, 500+16*3+10, 16, DARKGRAY);
+    DrawText("o simular.", 28, 500+16*4+10, 16, DARKGRAY);
+    DrawText("Click derecho", 28, 500+16*5+20, 16, DARKGRAY);
+    DrawText("para eliminar.", 28, 500+16*6+20, 16, DARKGRAY); 
 }
 
 static int ObtenerComponenteBajoMouse(const ListaComponentes *lista) {
