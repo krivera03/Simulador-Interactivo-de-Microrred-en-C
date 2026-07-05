@@ -5,7 +5,7 @@
 #define HEIGHT 80
 
 
-static Vector2 Centro_Componente(const Componente *componente) { //retorna el centro del componente
+static Vector2 Centro_Componente( Componente *componente) { //retorna el centro del componente
     Vector2 centro;
     centro.x = componente->x+WIDTH/2; // x y del rectangulo es la esquina superior izquierda, por eso se suma la mitad del ancho y se suma la mitad de la altura
     centro.y = componente->y+HEIGHT/2; // x y del rectangulo es 
@@ -29,7 +29,7 @@ static Color Componente_Color(TipoComponente tipo) {
     }
 }
 
-static Rectangle Componente_Rect(const Componente *componente) {//retorna el rectángulo del componente
+static Rectangle Componente_Rect( Componente *componente) {//retorna el rectángulo del componente
     Rectangle rect;
     rect.x = componente->x ; 
     rect.y = componente->y ; // xy sera del centro, el rectangulo se dibuja desde la esquina superior izquierda, por eso se resta la mitad del ancho y se suma la mitad de la altura
@@ -39,7 +39,7 @@ static Rectangle Componente_Rect(const Componente *componente) {//retorna el rec
     return rect;
 }
 
-static void DrawBoton(Rectangle rect, const char *text, Color color, Color textColor) { //Crea botones para validar, simular y reiniciar
+static void DrawBoton(Rectangle rect,  char *text, Color color, Color textColor) { //Crea botones para validar, simular y reiniciar
     Vector2 mouse = GetMousePosition();
     int lo_toca = CheckCollisionPointRec(mouse, rect);
     if (color.r ==LIGHTGRAY.r && color.g ==LIGHTGRAY.g && color.b ==LIGHTGRAY.b) {
@@ -64,7 +64,7 @@ static int RightClick(Rectangle rect) {
     return IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), rect);
 }
 
-static void DrawComponente(const Componente *componente) {
+static void DrawComponente( Componente *componente) {
     Rectangle rect = Componente_Rect(componente);
     Color color = Componente_Color(componente->tipo);
 
@@ -143,7 +143,7 @@ static void DrawPanelComponentes(void) {
     DrawText("para eliminar.", 28, 500+16*6+20, 16, DARKGRAY); 
 }
 
-static int ObtenerComponenteBajoMouse(const ListaComponentes *lista) {
+static int ObtenerComponenteBajoMouse( ListaComponentes *lista) {
     Vector2 mouse = GetMousePosition();
 
     for (int i = 0; i < lista->cuenta; i++) {
@@ -159,10 +159,10 @@ static int ObtenerComponenteBajoMouse(const ListaComponentes *lista) {
 
 
 
-static void DrawConexion(const ListaComponentes *listacomp, const ListaConexiones *listaconx) { //Dibuja conexion entre dos elementos, ahora ver como detectar que quiero una conexion
+static void DrawConexion( ListaComponentes *listacomp,  ListaConexiones *listaconx) { //Dibuja conexion entre dos elementos, ahora ver como detectar que quiero una conexion
     for (int i = 0; i < listaconx->cuenta; i++) {
-        const Componente *terminal1 = Buscar_ComponenteID(listacomp, listaconx->conexiones[i].origenID);
-        const Componente *terminal2 = Buscar_ComponenteID(listacomp, listaconx->conexiones[i].destinoID);
+         Componente *terminal1 = Buscar_ComponenteID(listacomp, listaconx->conexiones[i].origenID);
+         Componente *terminal2 = Buscar_ComponenteID(listacomp, listaconx->conexiones[i].destinoID);
 
         if (terminal1 == NULL || terminal2 == NULL) {
             continue;
@@ -176,7 +176,7 @@ static void DrawConexion(const ListaComponentes *listacomp, const ListaConexione
     }
 }
 
-static void DrawTextWrapped(const char *text, int x, int y, int fontSize, int maxWidth, Color color) {
+static void DrawTextWrapped( char *text, int x, int y, int fontSize, int maxWidth, Color color) {
 
     int len = strlen(text);
 
@@ -398,7 +398,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
 
 
 
-void I_Draw(const IState *state, const ListaComponentes *componentesID, const ListaConexiones *conexionesID) {
+void I_Draw( IState *state,  ListaComponentes *componentesID,  ListaConexiones *conexionesID) {
     if (state == NULL || componentesID == NULL) {
         return;
     }
@@ -429,7 +429,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
 ////////////////////////////////////
     DrawConexion(componentesID, conexionesID);
     if (state->arrastrando_linea && state->dibujando && state->desdeID != -1) {
-        const Componente *origen = Buscar_ComponenteID(componentesID, state->desdeID);
+        Componente *origen = Buscar_ComponenteID(componentesID, state->desdeID);
 
         if (origen) {
             Vector2 a = Centro_Componente(origen);
