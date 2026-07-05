@@ -39,13 +39,22 @@ static Rectangle Componente_Rect(const Componente *componente) {//retorna el rec
     return rect;
 }
 
-static void DrawBoton(Rectangle rect, const char *text) { //Crea botones para validar, simular y reiniciar
+static void DrawBoton(Rectangle rect, const char *text, Color color, Color textColor) { //Crea botones para validar, simular y reiniciar
     Vector2 mouse = GetMousePosition();
     int lo_toca = CheckCollisionPointRec(mouse, rect);
-
-    DrawRectangleRounded(rect, 0.18f, 8, lo_toca ? SKYBLUE : LIGHTGRAY); //debe
-    DrawRectangleLinesEx(rect, 2.0f, DARKGRAY);
-    DrawText(text, (int)rect.x+15 , (int)rect.y+15, 20, DARKBLUE);
+    if (color.r ==LIGHTGRAY.r && color.g ==LIGHTGRAY.g && color.b ==LIGHTGRAY.b) {
+        DrawRectangleRounded(rect, 0.18f, 8, lo_toca ? SKYBLUE : color); //debe
+        DrawRectangleLinesEx(rect, 2.0f, DARKGRAY);
+        DrawText(text, (int)rect.x+15 , (int)rect.y+15, 20, textColor);
+    }
+    else {
+        int r = color.r<255-50 ? color.r+50 : 255;
+        int g = color.g<255-50 ? color.g+50 : 255;
+        int b = color.b<255-50 ? color.b+50 : 255;
+        DrawRectangleRounded(rect, 0.18f, 8, lo_toca ? (Color){r, g, b, 255} : color); //debe
+        DrawText(text, (int)rect.x+10 , (int)rect.y+13, 20, textColor);
+    }
+    
 }
 
 static int LeftClick(Rectangle rect) {
@@ -106,31 +115,32 @@ static void DrawPanelComponentes(void) {
     DrawText("Microrred", 28, 25, 30, DARKBLUE);
     DrawText("Componentes", 28, 75, 20, DARKGRAY);
 
-    DrawRectangleRounded((Rectangle){25, 115, 170, 45}, 0.15f, 8, (Color){255, 209, 102, 255});
-    DrawText("Panel solar", 45, 128, 18, DARKBLUE);
+    DrawBoton((Rectangle){25, 115, 170, 45}, "Panel solar" , (Color){255, 209, 102, 255}, DARKBLUE);
+    //DrawText("Panel solar", 45, 128, 18, DARKBLUE);
 
-    DrawRectangleRounded((Rectangle){25, 175, 170, 45}, 0.15f, 8, (Color){17, 138, 178, 255});
-    DrawText("Controlador", 45, 188, 18, RAYWHITE);
+    DrawBoton((Rectangle){25, 175, 170, 45}, "Controlador" , (Color){17, 138, 178, 255}, RAYWHITE);
+    //DrawText("Controlador", 45, 188, 18, RAYWHITE);
 
-    DrawRectangleRounded((Rectangle){25, 235, 170, 45}, 0.15f, 8, (Color){6, 214, 160, 255});
-    DrawText("Bateria", 45, 248, 18, DARKBLUE);
+    DrawBoton((Rectangle){25, 235, 170, 45}, "Bateria" , (Color){6, 214, 160, 255}, DARKBLUE);
+    //DrawText("Bateria", 45, 248, 18, DARKBLUE);
 
-    DrawRectangleRounded((Rectangle){25, 295, 170, 45}, 0.15f, 8, (Color){239, 71, 111, 255});
-    DrawText("Carga", 45, 308, 18, RAYWHITE);
+    DrawBoton((Rectangle){25, 295, 170, 45}, "Carga" , (Color){239, 71, 111, 255}, RAYWHITE);
+    //DrawText("Carga", 45, 308, 18, RAYWHITE);
 
-    DrawRectangleRounded((Rectangle){25, 355, 170, 45}, 0.15f, 8, (Color){239, 138, 102, 255});
-    DrawText("Convertidor", 45, 368, 18, DARKBLUE);
+    DrawBoton((Rectangle){25, 355, 170, 45}, "Convertidor" , (Color){239, 138, 102, 255}, DARKBLUE);
+    //DrawText("Convertidor", 45, 368, 18, DARKBLUE);
 
-    DrawRectangleRounded((Rectangle){25, 415, 170, 45}, 0.15f, 8, (Color){200, 200, 200, 255});
-    DrawText("Dibujar", 45, 428, 18, DARKBLUE);
+    DrawBoton((Rectangle){25, 415, 170, 45}, "Dibujar" , LIGHTGRAY, DARKBLUE);
+    //DrawText("Dibujar", 45, 428, 18, RAYWHITE);
 
     //DrawText("MVP:", 28, 390, 18, DARKBLUE);
-
-    DrawText("Arrastre los bloques", 28, 500, 16, DARKGRAY);
-    DrawText("y presione validar", 28, 500+16*1, 16, DARKGRAY);
-    DrawText("o simular.", 28, 500+16*2, 16, DARKGRAY);
-    DrawText("Click derecho", 28, 500+16*3, 16, DARKGRAY);
-    DrawText("para eliminar", 28, 500+16*4, 16, DARKGRAY); 
+    DrawText("Presione Dibujar para", 28, 500, 16, DARKGRAY);
+    DrawText("conectar componentes.", 28, 500+16*1, 16, DARKGRAY);
+    DrawText("Arrastre los bloques", 28, 500+16*2+10, 16, DARKGRAY);
+    DrawText("y presione validar", 28, 500+16*3+10, 16, DARKGRAY);
+    DrawText("o simular.", 28, 500+16*4+10, 16, DARKGRAY);
+    DrawText("Click derecho", 28, 500+16*5+20, 16, DARKGRAY);
+    DrawText("para eliminar.", 28, 500+16*6+20, 16, DARKGRAY); 
 }
 
 static int ObtenerComponenteBajoMouse(const ListaComponentes *lista) {
@@ -263,24 +273,28 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         state->arrastrando_linea = 0;
         state->desdeID = -1;
     }
-    ////////////////////////////////////       
-    if (LeftClick(btnPanel)) {
-        AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 0, 30, 0, 0, -1, -1);
-    }
+    ////////////////////////////////////   
+    if (!state->dibujando) {
+       
+        if (LeftClick(btnPanel)) {
+            AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 0, 30, 0, 0, -1, -1);
+        }
 
-    if (LeftClick(btnControlador)) {
-        AgregarComponentes(componentesID, controlador, mouse.x, mouse.y, 12, 0, 500, 0, 0, -1, -1);
-    }
+        if (LeftClick(btnControlador)) {
+            AgregarComponentes(componentesID, controlador, mouse.x, mouse.y, 12, 0, 500, 0, 0, -1, -1);
+        }
 
-    if (LeftClick(btnBateria)) {
-        AgregarComponentes(componentesID, bateria, mouse.x, mouse.y, 12, 0, 12*2.2, 2.2, 50, -1, -1);
-    }
+        if (LeftClick(btnBateria)) {
+            AgregarComponentes(componentesID, bateria, mouse.x, mouse.y, 12, 0, 12*2.2, 2.2, 50, -1, -1);
+        }
 
-    if (LeftClick(btnCarga)) {
-        AgregarComponentes(componentesID, carga, mouse.x, mouse.y, 0, 120, 60, 0, 0, -1, -1);
-    }
-    if (LeftClick(btnConvertidor)) {
-        AgregarComponentes(componentesID, convertidor, mouse.x, mouse.y, 12, 120, 500, 0, 0, -1, -1);
+        if (LeftClick(btnCarga)) {
+            AgregarComponentes(componentesID, carga, mouse.x, mouse.y, 0, 120, 60, 0, 0, -1, -1);
+        }
+        if (LeftClick(btnConvertidor)) {
+            AgregarComponentes(componentesID, convertidor, mouse.x, mouse.y, 12, 120, 500, 0, 0, -1, -1);
+        }
+
     }
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         for (int i = componentesID->cuenta - 1; i >= 0; i--) {
@@ -318,8 +332,8 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             if (componente->x > 805.0f-WIDTH+220.0f) {
                 componente->x = 805.0f-WIDTH+220.0f;
             }
-            if (componente->y > 700.0f-HEIGHT) {
-                componente->y = 700.0f-HEIGHT;
+            if (componente->y > 600.0f-HEIGHT) {
+                componente->y = 600.0f-HEIGHT;
             }
         }
     }
@@ -374,9 +388,11 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
    // DrawText("Simulador Interactivo de Microrred en C", 260, 25, 28, DARKBLUE);
     //DrawText("Sistema base: panel solar + controlador + bateria + carga", 260, 62, 18, DARKGRAY);
     if (state->dibujando) {
-        DrawRectangleLinesEx((Rectangle){220, 0, 805, 700}, 4.0f, GRAY);
+        DrawRectangleLinesEx((Rectangle){220, 0, 805, 600}, 4.0f, GRAY);
+        DrawRectangleRec((Rectangle){220, 0, 805, 600}, LIGHTGRAY);
+        DrawText("Modo dibujo Conexiones", 500, 30, 18, RAYWHITE);
     } else {
-        DrawRectangleLinesEx((Rectangle){220, 0, 805, 700}, 4.0f, LIGHTGRAY);
+        DrawRectangleLinesEx((Rectangle){220, 0, 805, 600}, 4.0f, LIGHTGRAY);
     }
     
     DrawText("Area de trabajo", 240, 30, 18, GRAY);
@@ -401,12 +417,12 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     }
 
     //////////////////////////////////
-    DrawBoton((Rectangle){1200-130-25, 50, 130, 50}, "Validar");
-    DrawBoton((Rectangle){1200-130-25, 50*2, 130, 50}, "Simular");
-    //DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar");
+    DrawBoton((Rectangle){1200-130-25, 50, 130, 50}, "Validar", LIGHTGRAY, DARKBLUE);
+    DrawBoton((Rectangle){1200-130-25, 50*2, 130, 50}, "Simular", LIGHTGRAY, DARKBLUE);
+    //DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar", LIGHTGRAY, DARKBLUE);
 
     //DrawRectangleRounded((Rectangle){1200-130-25, 50*4, 130, 500-50}, 0.12f, 8, LIGHTGRAY); //Quiero hace un panel para editar parametros del componente
-    DrawRectangleRec((Rectangle){220, 600,805, 105}, LIGHTGRAY);
+    DrawRectangleRec((Rectangle){220, 600,805, 80}, LIGHTGRAY);
     DrawText("Resultado:", 220+100, 600 + 25, 18, DARKBLUE);
 
     //Implementar pestaña de resultados de validacion y simulacion
