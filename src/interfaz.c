@@ -42,7 +42,7 @@ static void DrawBoton(Rectangle rect, const char *text) { //Crea botones para va
 
     DrawRectangleRounded(rect, 0.18f, 8, lo_toca ? SKYBLUE : LIGHTGRAY); //debe
     DrawRectangleLinesEx(rect, 2.0f, DARKGRAY);
-    DrawText(text, (int)rect.x +HEIGHT/2.0f, (int)rect.y -HEIGHT/2.0f, 20, DARKBLUE);
+    DrawText(text, (int)rect.x , (int)rect.y, 20, DARKBLUE);
 }
 
 static int LeftClick(Rectangle rect) {
