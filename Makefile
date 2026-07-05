@@ -3,6 +3,7 @@
 
 CC     = gcc
 CFLAGS = -Wall -Wextra -Iinclude
+LDFLAGS = -lraylib -lm -lpthread -ldl -lrt -lX11
 VALGRIND = -Iinclude -g -O0 
 TARGET = prueba_interfaz
 SRC_DIR = src
@@ -12,12 +13,12 @@ COMPLETO = $(SRC_DIR)/main_prueba.c $(SRC_DIR)/componentes.c $(SRC_DIR)/interfaz
 all: $(TARGET)
 
 $(TARGET):  
-	$(CC) $(CFLAGS)  $(COMPLETO) -o $(TARGET)
+	$(CC) $(CFLAGS) $(LDFLAGS)  $(COMPLETO) -o $(TARGET)
 
 run: all
 	./$(TARGET)
 debug: clean
-	$(CC) $(VALGRIND) $(COMPLETO) -o $(TARGET)
+	$(CC) $(VALGRIND) $(LDFLAGS)  $(COMPLETO) -o $(TARGET)
 
 valgrind: debug
 	valgrind --leak-check=full ./$(TARGET)
