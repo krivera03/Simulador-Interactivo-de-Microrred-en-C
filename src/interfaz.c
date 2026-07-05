@@ -130,12 +130,12 @@ static void DrawPanelComponentes(void) {
     DrawBoton((Rectangle){25, 355, 170, 45}, "Convertidor" , (Color){239, 138, 102, 255}, DARKBLUE);
     //DrawText("Convertidor", 45, 368, 18, DARKBLUE);
 
-    DrawBoton((Rectangle){25, 415, 170, 45}, "Dibujar" , RAYWHITE, DARKBLUE);
+    DrawBoton((Rectangle){25, 415, 170, 45}, "Dibujar" , LIGHTGRAY, DARKBLUE);
     //DrawText("Dibujar", 45, 428, 18, RAYWHITE);
 
     //DrawText("MVP:", 28, 390, 18, DARKBLUE);
-    DrawText("Presione Dibujar para", 28, 500, 18, DARKBLUE);
-    DrawText("conectar componentes", 28, 500+16*1, 18, DARKBLUE);
+    DrawText("Presione Dibujar para", 28, 500, 16, DARKGRAY);
+    DrawText("conectar componentes", 28, 500+16*1, 16, DARKGRAY);
     DrawText("Arrastre los bloques", 28, 500+16*2, 16, DARKGRAY);
     DrawText("y presione validar", 28, 500+16*3, 16, DARKGRAY);
     DrawText("o simular.", 28, 500+16*4, 16, DARKGRAY);
