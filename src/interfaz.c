@@ -199,7 +199,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     Rectangle boton_reiniciar = {1200-130-25, 50*3, 130, 50};
 
     if (LeftClick(boton_validar)) {
-        state->resultado_simulacion= ValidarConexion(componentesID, conexionesID)  ;
+        state->resultado_simulacion= ValidarMicrorred(componentesID, conexionesID)  ;
         state->estado_validacion = 1;
         state->estado_simulacion = 0;
     }
