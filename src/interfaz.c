@@ -114,11 +114,11 @@ static void DrawPanelComponentes(void) {
     DrawRectangleRounded((Rectangle){25, 295, 170, 45}, 0.15f, 8, (Color){239, 71, 111, 255});
     DrawText("Carga", 45, 308, 18, RAYWHITE);
 
-    DrawRectangleRounded((Rectangle){25, 390, 170, 150}, 0.15f, 8, (Color){245, 245, 245, 255});
-    DrawText("Convertidor", 45, 403, 18, DARKBLUE);
+    DrawRectangleRounded((Rectangle){25, 355, 170, 45}, 0.15f, 8, (Color){239, 138, 102, 255});
+    DrawText("Convertidor", 45, 368, 18, DARKBLUE);
 
-    DrawRectangleRounded((Rectangle){25, 560, 170, 45}, 0.15f, 8, (Color){200, 200, 200, 255});
-    DrawText("Dibujar", 45, 573, 18, DARKBLUE);
+    DrawRectangleRounded((Rectangle){25, 415, 170, 45}, 0.15f, 8, (Color){200, 200, 200, 255});
+    DrawText("Dibujar", 45, 428, 18, DARKBLUE);
 
     //DrawText("MVP:", 28, 390, 18, DARKBLUE);
 
@@ -310,8 +310,8 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     DrawBoton((Rectangle){1200-130-25, 50*2, 130, 50}, "Simular");
     DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar");
 
-    DrawRectangleRounded((Rectangle){1200-130-25, 50*4, 130, 50*4}, 0.12f, 8, LIGHTGRAY);
-    DrawText("Resultado:", 1200-130-25, 50*5 + 25, 18, DARKBLUE);
+    DrawRectangleRounded((Rectangle){1200-130-25, 50*4, 130, 500}, 0.12f, 8, LIGHTGRAY);
+    DrawText("Resultado:", 1200-130, 50*5 + 25, 18, DARKBLUE);
     //Implementar pestaña de resultados de validacion y simulacion
     EndDrawing();
 }
