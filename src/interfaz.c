@@ -260,7 +260,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     }
 }
 
-    if (state->dibujando && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && state->arrastrando_linea) {
+    if (state->dibujando && IsMouseButtonReleased(MOUSE_LEFT_BUTTON) && state->arrastrando_linea) {
 
         int id = ObtenerComponenteBajoMouse(componentesID);
 
@@ -297,7 +297,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             Rectangle rect = Componente_Rect(componente);
 
 
-            if (LeftClick(rect) && !state->dibujando) {
+            if (CheckCollisionPointRec(mouse, rect) && !state->dibujando) {
                 //////////////////////////////////////
                 state->componente_seleccionado = componente->id;
                 state->arrastrando = 1;
