@@ -183,6 +183,9 @@ void IState_Init(IState *state) {
     state->estado_validacion = 0;
     state->estado_simulacion = 0;
     state->dibujando = 0;
+    state->desdeID = -1;
+    state->hastaID = -1;
+    state->arrastrando_linea = 0;
 }
 
 
@@ -248,12 +251,12 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
 
         if (id != -1) {
             state->desdeID = id;
-            state->arrastrando = 1;
+            state->arrastrando_linea = 1;
             printf("Inicio conexion desde %d\n", id);
         }
     }   
 
-    if (state->arrastrando && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
+    if (state->arrastrando_linea && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
 
         int id = ObtenerComponenteBajoMouse(componentesID);
 
@@ -262,7 +265,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             printf("Conexion creada: %d -> %d\n", state->desdeID, id);
         }
 
-    state->arrastrando = 0;
+    state->arrastrando_linea = 0;
     }
     ////////////////////////////////////       
     if (LeftClick(btnPanel)) {
@@ -371,7 +374,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     }
 ///////////////////////////////////////////////////////////
     DrawConexion(componentesID, conexionesID);
-    if (state->arrastrando) {
+    if (state->arrastrando_linea) {
         const Componente *origen = Buscar_ComponenteID(componentesID, state->desdeID);
 
         if (origen) {
