@@ -260,7 +260,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     }
 }
 
-    if (state->arrastrando_linea && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
+    if (state->arrastrando_linea && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
 
         int id = ObtenerComponenteBajoMouse(componentesID);
 
@@ -310,15 +310,12 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         }
     }
 
-    if ((state->arrastrando) && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+    if ((state->arrastrando) && IsMouseButtonDown(MOUSE_LEFT_BUTTON)&&!state->dibujando) {
         Componente *componente = Buscar_ComponenteID(componentesID, state->componente_seleccionado);
         if (componente != NULL) {
-            ///////////////////////////////////////
-            if (!state->dibujando) {
-                componente->x = mouse.x - state->desplazamiento_x;
-                componente->y = mouse.y - state->desplazamiento_y;
-            }
-            ////////////////////////////////////
+                    
+            componente->x = mouse.x - state->desplazamiento_x;
+            componente->y = mouse.y - state->desplazamiento_y;
             
             // limites de pantalla para que no se salga de la zona de trabajo
             if (componente->x < 220) {
