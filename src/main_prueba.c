@@ -5,8 +5,8 @@
 #include "interfaz.h"
 
 int main(void){   
-    const int screenWidth = getScreenWidth();
-    const int screenHeight = getScreenHeight();
+    const int screenWidth = GetScreenWidth();
+    const int screenHeight = GetScreenHeight();
 
     ListaComponentes componentes;
     Iniciar_ListaComponentes(&componentes);
