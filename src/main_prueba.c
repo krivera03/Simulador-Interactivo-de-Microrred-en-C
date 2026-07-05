@@ -6,7 +6,7 @@
 
 int main(void){   
     const int screenWidth = GetScreenWidth();
-    const int screenHeight = GetScreenHeight()-100;
+    const int screenHeight = GetScreenHeight()-10;
 
     ListaComponentes componentes;
     Iniciar_ListaComponentes(&componentes);
