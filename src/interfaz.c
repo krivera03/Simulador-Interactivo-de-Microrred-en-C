@@ -42,13 +42,16 @@ static Rectangle Componente_Rect(const Componente *componente) {//retorna el rec
 static void DrawBoton(Rectangle rect, const char *text, Color color, Color textColor) { //Crea botones para validar, simular y reiniciar
     Vector2 mouse = GetMousePosition();
     int lo_toca = CheckCollisionPointRec(mouse, rect);
-    if (color ==LIGHTGRAY) {
+    if (color.r ==LIGHTGRAY.r && color.g ==LIGHTGRAY.g && color.b ==LIGHTGRAY.b) {
         DrawRectangleRounded(rect, 0.18f, 8, lo_toca ? SKYBLUE : color); //debe
         DrawRectangleLinesEx(rect, 2.0f, DARKGRAY);
         DrawText(text, (int)rect.x+15 , (int)rect.y+15, 20, textColor);
     }
     else {
-        DrawRectangleRounded(rect, 0.18f, 8, lo_toca ? color = (Color){color.r+50, color.g+50, color.b+50, 255}; : color); //debe
+        int r = color.r<255-50 ? color.r+50 : 255;
+        int g = color.g<255-50 ? color.g+50 : 255;
+        int b = color.b<255-50 ? color.b+50 : 255;
+        DrawRectangleRounded(rect, 0.18f, 8, lo_toca ? (Color){r, g, b, 255} : color); //debe
         DrawText(text, (int)rect.x+10 , (int)rect.y+13, 20, textColor);
     }
     
