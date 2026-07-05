@@ -1,7 +1,7 @@
 #include "componentes.h"
 #include "conexiones.h"
 #include "interfaz.h"
-#define WIDTH 100
+#define WIDTH 120
 #define HEIGHT 80
 
 
@@ -246,14 +246,14 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             componente->x = mouse.x - state->desplazamiento_x;
             componente->y = mouse.y - state->desplazamiento_y;
             // limites de pantalla para que no se salga de la zona de trabajo
-            if (componente->x < 180.0f+WIDTH/2) {
-                componente->x = 180.0f+WIDTH/2;
+            if (componente->x < 220) {
+                componente->x = 220;
             }
             if (componente->y < 0.0f) {
                 componente->y = 0.0f;
             }
-            if (componente->x > 1000.0f-WIDTH) {
-                componente->x = 1000.0f-WIDTH;
+            if (componente->x > 805.0f-WIDTH) {
+                componente->x = 805.0f-WIDTH;
             }
             if (componente->y > 700.0f-HEIGHT) {
                 componente->y = 700.0f-HEIGHT;
@@ -313,7 +313,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar");
 
     DrawRectangleRounded((Rectangle){1200-130-25, 50*4, 130, 500}, 0.12f, 8, LIGHTGRAY);
-    DrawText("Resultado:", 1200-130, 50*5 + 25, 18, DARKBLUE);
+    DrawText("Resultado:", 1200-130, 50*4+5 + 25, 18, DARKBLUE);
     //Implementar pestaña de resultados de validacion y simulacion
     EndDrawing();
 }
