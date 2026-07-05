@@ -22,6 +22,8 @@ static Color Componente_Color(TipoComponente tipo) {
             return (Color){6, 214, 160, 255};
         case carga:
             return (Color){239, 71, 111, 255};
+        case convertidor:
+            return (Color){239, 138, 102, 255};
         default:
             return LIGHTGRAY;
     }
@@ -122,11 +124,11 @@ static void DrawPanelComponentes(void) {
 
     //DrawText("MVP:", 28, 390, 18, DARKBLUE);
 
-    DrawText("Arrastre los bloques", 28, 600, 16, DARKGRAY);
-    DrawText("y presione validar", 28, 600+16*1, 16, DARKGRAY);
-    DrawText("o simular.", 28, 600+16*2, 16, DARKGRAY);
-    DrawText("Click derecho", 28, 600+16*3, 16, DARKGRAY);
-    DrawText("para eliminar", 28, 600+16*4, 16, DARKGRAY); 
+    DrawText("Arrastre los bloques", 28, 500, 16, DARKGRAY);
+    DrawText("y presione validar", 28, 500+16*1, 16, DARKGRAY);
+    DrawText("o simular.", 28, 500+16*2, 16, DARKGRAY);
+    DrawText("Click derecho", 28, 500+16*3, 16, DARKGRAY);
+    DrawText("para eliminar", 28, 500+16*4, 16, DARKGRAY); 
 }
 
 
@@ -190,8 +192,8 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     Rectangle btnControlador = {25, 175, 170, 45};
     Rectangle btnBateria = {25, 235, 170, 45};
     Rectangle btnCarga = {25, 295, 170, 45};
-    Rectangle btnConvertidor = {25, 390, 170, 150};
-    Rectangle btnDibujar = {25, 560, 170, 45};
+    Rectangle btnConvertidor = {25, 355, 170, 45};
+    Rectangle btnDibujar = {25, 415, 170, 45};
     if (LeftClick(btnDibujar)) {
         printf("Dibujar\n");
         state->dibujando = 1;
