@@ -243,6 +243,8 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         if (state->dibujando)
             printf("Dibujando activado\n");
         else
+            state->arrastrando_linea = 0;
+            state->desdeID = -1;
             printf("Dibujando desactivado\n");
     }
     if (state->dibujando && IsMouseButtonDown(MOUSE_LEFT_BUTTON) && !state->arrastrando_linea) {
@@ -265,9 +267,6 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             printf("Conexion creada: %d -> %d\n", state->desdeID, id);
         }
 
-        state->arrastrando_linea = 0;
-        state->desdeID = -1;
-        state->hastaID = -1;
     }
     ////////////////////////////////////       
     if (LeftClick(btnPanel)) {
