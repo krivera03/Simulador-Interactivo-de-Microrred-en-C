@@ -63,6 +63,9 @@ make clean
 - Sistema operativo Linux, macOS o Windows con MinGW/MSYS2 o WSL.
 
 ## Autores
+
 - Karen Rivera Angulo 
 - Ismael Alvarado Perez
 - Jean Carlo Chinchilla Mora
+
+
