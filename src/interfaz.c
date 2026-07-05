@@ -227,7 +227,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
  **/
     Vector2 mouse = GetMousePosition();
 
-    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+    
 
     Rectangle btnPanel = {25, 115, 170, 45};
     Rectangle btnControlador = {25, 175, 170, 45};
@@ -249,7 +249,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             printf("Dibujando desactivado\n");
         }
     }
-    if (state->dibujando && IsMouseButtonDown(MOUSE_LEFT_BUTTON) && !state->arrastrando_linea) {
+    if (state->dibujando && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !state->arrastrando_linea) {
 
         int id = ObtenerComponenteBajoMouse(componentesID);
 
@@ -260,7 +260,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     }
 }
 
-    if (state->arrastrando_linea ) {
+    if (state->dibujando&& state->arrastrando_linea && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 
         int id = ObtenerComponenteBajoMouse(componentesID);
 
@@ -291,7 +291,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     if (LeftClick(btnConvertidor)) {
         AgregarComponentes(componentesID, convertidor, mouse.x, mouse.y, 12, 120, 500, 0, 0, -1, -1);
     }
-
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         for (int i = componentesID->cuenta - 1; i >= 0; i--) {
             Componente *componente = &componentesID->componentes[i];
             Rectangle rect = Componente_Rect(componente);
