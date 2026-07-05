@@ -240,12 +240,14 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     if (LeftClick(btnDibujar)) {
         state->dibujando = !state->dibujando;
 
-        if (state->dibujando)
+        if (state->dibujando) {
             printf("Dibujando activado\n");
-        else
+            }
+        else {
             state->arrastrando_linea = 0;
             state->desdeID = -1;
             printf("Dibujando desactivado\n");
+        }
     }
     if (state->dibujando && IsMouseButtonDown(MOUSE_LEFT_BUTTON) && !state->arrastrando_linea) {
 
@@ -265,6 +267,8 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         if (id != -1 && id != state->desdeID) {
             AgregarConexiones(conexionesID, state->desdeID, id);
             printf("Conexion creada: %d -> %d\n", state->desdeID, id);
+            state->arrastrando_linea = 0;
+            state->desdeID = -1;
         }
 
     }
