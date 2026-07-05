@@ -196,7 +196,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
 
     Rectangle boton_validar = { 1200-130-25, 50, 130, 50};
     Rectangle boton_simular = {1200-130-25, 50*2, 130, 50};
-    Rectangle boton_reiniciar = {1200-130-25, 50*3, 130, 50};
+    /**Rectangle boton_reiniciar = {1200-130-25, 50*3, 130, 50};**/
 
     if (LeftClick(boton_validar)) {
         state->resultado_validacion = ValidarMicrorred(componentesID, conexionesID)  ;
@@ -209,12 +209,12 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         state->estado_simulacion = 1;
     }
 
-    if (LeftClick(boton_reiniciar)) {
+    /**if (LeftClick(boton_reiniciar)) {
         for (int i = 0; i < componentesID->cuenta; i++) {
             componentesID->componentes[i]= (Componente){-1}; // Reinicia cada componente a un estado predeterminado
             conexionesID->conexiones[i]= (Conexion){-1}; // Reinicia cada conexion a un estado predeterminado
         }
-    }
+    }**/
  
     Vector2 mouse = GetMousePosition();
 
@@ -403,7 +403,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     //////////////////////////////////
     DrawBoton((Rectangle){1200-130-25, 50, 130, 50}, "Validar");
     DrawBoton((Rectangle){1200-130-25, 50*2, 130, 50}, "Simular");
-    DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar");
+    //DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar");
 
     //DrawRectangleRounded((Rectangle){1200-130-25, 50*4, 130, 500-50}, 0.12f, 8, LIGHTGRAY); //Quiero hace un panel para editar parametros del componente
     DrawRectangleRec((Rectangle){220, 600,805, 105}, LIGHTGRAY);
