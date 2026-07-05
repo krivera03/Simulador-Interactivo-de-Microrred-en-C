@@ -59,14 +59,14 @@ static void DrawComponente(const Componente *componente) {
     DrawRectangleRounded(rect, 0.15f, 10, color);
     //DrawRectangleLinesEx(rect, seleccionado ? 4.0f : 2.0f, seleccionado ? RED : DARKGRAY);
 
-    DrawText(Buscar_ComponenteNombre(componente->tipo), (int)componente->x, (int)componente->y -35, 18, DARKGRAY);
+    DrawText(Buscar_ComponenteNombre(componente->tipo), (int)componente->x, (int)componente->y+35, 18, DARKGRAY);
 
     char texto[96];
-    snprintf(texto, sizeof(texto), "V: %.0f V", componente->voltaje);
-    DrawText(texto, (int)componente->x , (int)componente->y-55, 16, DARKGRAY);
+    snprintf(texto, sizeof(texto), "%.0f V", componente->voltaje);
+    DrawText(texto, (int)componente->x , (int)componente->y+55, 16, DARKGRAY);
     switch (componente->tipo) {
     case 0: // panel_solar
-        snprintf(texto, sizeof(texto), "P gen: %.0f W", componente->potencia);
+        snprintf(texto, sizeof(texto), " %.0f W", componente->potencia);
         break;
     case 1: // bateria
         snprintf(texto, sizeof(texto), "SOC: %.0f%%", componente->estado_carga);
@@ -82,7 +82,7 @@ static void DrawComponente(const Componente *componente) {
         snprintf(texto, sizeof(texto), "Desconocido");
     }
 
-    DrawText(texto, (int)componente->x, (int)componente->y-75, 16, DARKGRAY);
+    DrawText(texto, (int)componente->x, (int)componente->y+75, 16, DARKGRAY);
 }
 
 
@@ -105,8 +105,10 @@ static void DrawPanelComponentes(void) {
 
     //DrawText("MVP:", 28, 390, 18, DARKBLUE);
     DrawText("Arrastre los bloques", 28, 420, 16, DARKGRAY);
-    DrawText("y presione validar", 28, 420-16*1, 16, DARKGRAY);
-    DrawText("o simular.", 28, 420-16*2, 16, DARKGRAY);
+    DrawText("y presione validar", 28, 420+16*1, 16, DARKGRAY);
+    DrawText("o simular.", 28, 420+16*2, 16, DARKGRAY);
+    DrawText("Click derecho", 28, 420+16*3, 16, DARKGRAY);
+    DrawText("para eliminar", 28, 420+16*4, 16, DARKGRAY); 
 }
 
 
@@ -260,7 +262,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
    // DrawText("Simulador Interactivo de Microrred en C", 260, 25, 28, DARKBLUE);
     //DrawText("Sistema base: panel solar + controlador + bateria + carga", 260, 62, 18, DARKGRAY);
 
-    DrawRectangleLinesEx((Rectangle){200,  GetScreenHeight(), GetScreenWidth() - 200 - 130, GetScreenHeight()}, 2.0f, LIGHTGRAY);
+    DrawRectangleLinesEx((Rectangle){200,  -GetScreenHeight(), -GetScreenWidth() + 200 + 130, -GetScreenHeight()}, 2.0f, LIGHTGRAY);
     DrawText("Area de trabajo", 240, GetScreenHeight() - 30, 18, GRAY);
 
     // Agregar funcion para dibujar conexiones entre componentes
@@ -270,9 +272,9 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
         DrawComponente(&componentesID->componentes[i]);
     }
 
-    DrawBoton((Rectangle){GetScreenWidth() - 130, GetScreenHeight() - 50, 130, 50}, "Validar");
-    DrawBoton((Rectangle){GetScreenWidth() - 130, GetScreenHeight() - 50*2, 130, 50}, "Simular");
-    DrawBoton((Rectangle){GetScreenWidth() - 130, GetScreenHeight() - 50*3, 130, 50}, "Reiniciar caso");
+    DrawBoton((Rectangle){-GetScreenWidth() + 130, -GetScreenHeight() + 50, 130, 50}, "Validar");
+    DrawBoton((Rectangle){-GetScreenWidth() + 130, -GetScreenHeight() + 50*2, 130, 50}, "Simular");
+    DrawBoton((Rectangle){-GetScreenWidth() + 130, -GetScreenHeight() + 50*3, 130, 50}, "Reiniciar caso");
 
     DrawRectangleRounded((Rectangle){GetScreenWidth() - 130, GetScreenHeight() - 50*4, 130, GetScreenHeight() - 50*4}, 0.12f, 8, (Color){245, 245, 245, 255});
     DrawText("Resultado:", GetScreenWidth() - 130, GetScreenHeight() - 50*5 + 26, 18, DARKBLUE);
