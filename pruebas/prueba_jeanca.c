@@ -13,10 +13,37 @@ int main(void)
     Iniciar_ListaComponentes(&componentes);
     Iniciar_ListaConexiones(&conexiones);
 
-    int idSolar = AgregarComponentes(&componentes, panel_solar, 100, 100, 48.0f, 800.0f, 0.0f, 0.0f);
-    int idControlador = AgregarComponentes(&componentes, controlador, 300, 100, 48.0f, 1500.0f, 0.0f, 0.0f);
-    int idBateria = AgregarComponentes(&componentes, bateria, 300, 250, 48.0f, 1000.0f, 2.0f, 80.0f);
-    int idCarga = AgregarComponentes(&componentes, carga, 500, 100, 48.0f, 1000.0f, 0.0f, 0.0f);
+    int idSolar = AgregarComponentes(&componentes, panel_solar,
+                                     100.0f, 100.0f,
+                                     48.0f, 0.0f,
+                                     800.0f,
+                                     0.0f,
+                                     0.0f,
+                                     -1.0f, -1.0f);
+
+    int idControlador = AgregarComponentes(&componentes, controlador,
+                                           300.0f, 100.0f,
+                                           48.0f, 0.0f,
+                                           1500.0f,
+                                           0.0f,
+                                           0.0f,
+                                           -1.0f, -1.0f);
+
+    int idBateria = AgregarComponentes(&componentes, bateria,
+                                       300.0f, 250.0f,
+                                       48.0f, 0.0f,
+                                       1000.0f,
+                                       100.0f,
+                                       80.0f,
+                                       -1.0f, -1.0f);
+
+    int idCarga = AgregarComponentes(&componentes, carga,
+                                     500.0f, 100.0f,
+                                     48.0f, 0.0f,
+                                     1000.0f,
+                                     0.0f,
+                                     0.0f,
+                                     -1.0f, -1.0f);
 
     AgregarConexiones(&conexiones, idSolar, idControlador);
     AgregarConexiones(&conexiones, idControlador, idBateria);
