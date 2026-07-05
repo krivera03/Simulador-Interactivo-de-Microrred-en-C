@@ -333,7 +333,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         for (int i = componentesID->cuenta - 1; i >= 0; i--) {
             Componente *componente = &componentesID->componentes[i];
             Rectangle rect = Componente_Rect(componente);
-            int id_eliminado;
+            int id_eliminado =-1;
 
             if (RightClick(rect)) {
                 // Eliminar el componente de la lista
@@ -346,7 +346,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             }
         }
         for (int i = 0; i < conexionesID->cuenta; i++) {
-            if (conexionesID->conexiones[i].desde == id_eliminado ||conexionesID->conexiones[i].hasta == id_eliminado) {
+            if ((conexionesID->conexiones[i].origenID == id_eliminado ||conexionesID->conexiones[i].destinoID == id_eliminado) && id_eliminado != -1) {
 
                 // eliminar conexión
                 for (int j = i; j < conexionesID->cuenta - 1; j++) {
