@@ -13,12 +13,12 @@ COMPLETO = $(SRC_DIR)/main_prueba.c $(SRC_DIR)/componentes.c $(SRC_DIR)/interfaz
 all: $(TARGET)
 
 $(TARGET):  
-	$(CC) $(CFLAGS) $(LDFLAGS)  $(COMPLETO) -o $(TARGET)
+	$(CC) $(CFLAGS) $(COMPLETO) -o $(TARGET) $(LDFLAGS) 
 
 run: all
 	./$(TARGET)
 debug: clean
-	$(CC) $(VALGRIND) $(LDFLAGS)  $(COMPLETO) -o $(TARGET)
+	$(CC) $(VALGRIND) $(COMPLETO) -o $(TARGET) $(LDFLAGS) 
 
 valgrind: debug
 	valgrind --leak-check=full ./$(TARGET)
