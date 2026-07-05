@@ -50,12 +50,12 @@ static int RectClick(Rectangle rect) {
 }
 
 
-static void DrawComponente(const Componente *componente, int seleccionado) {
+static void DrawComponente(const Componente *componente) {
     Rectangle rect = Componente_Rect(componente);
     Color color = Componente_Color(componente->tipo);
 
     DrawRectangleRounded(rect, 0.15f, 10, color);
-    DrawRectangleLinesEx(rect, seleccionado ? 4.0f : 2.0f, seleccionado ? RED : DARKGRAY);
+    //DrawRectangleLinesEx(rect, seleccionado ? 4.0f : 2.0f, seleccionado ? RED : DARKGRAY);
 
     DrawText(Buscar_ComponenteNombre(componente->tipo), (int)componente->x + 12, (int)componente->y + 10, 18, DARKBLUE);
 
@@ -101,7 +101,7 @@ static void DrawPanelComponentes(void) {
     DrawRectangleRounded((Rectangle){25, 295, 180, 45}, 0.15f, 8, (Color){239, 71, 111, 255});
     DrawText("Carga", 45, 308, 18, RAYWHITE);
 
-    DrawText("MVP:", 28, 390, 18, DARKBLUE);
+    //DrawText("MVP:", 28, 390, 18, DARKBLUE);
     DrawText("Arrastre los bloques", 28, 420, 16, DARKGRAY);
     DrawText("y presione validar", 28, 420-16*1, 16, DARKGRAY);
     DrawText("o simular.", 28, 420-16*2, 16, DARKGRAY);
@@ -110,6 +110,7 @@ static void DrawPanelComponentes(void) {
 
 void IState_Init(IState *state) {
     if (state == NULL) {
+        printf("Error: IState_Init received a NULL pointer.\n");
         return;
     }
 
@@ -161,6 +162,29 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
     Vector2 mouse = GetMousePosition();
 
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+
+    Rectangle btnPanel = {25, 115, 180, 45};
+    Rectangle btnControlador = {25, 175, 180, 45};
+    Rectangle btnBateria = {25, 235, 180, 45};
+    Rectangle btnCarga = {25, 295, 180, 45};
+
+    if (RectClick(btnPanel)) {
+        AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 100, 0, 0);
+    }
+
+    if (RectClick(btnControlador)) {
+        AgregarComponentes(componentesID, controlador, mouse.x, mouse.y, 12, 0, 0, 0);
+    }
+
+    if (RectClick(btnBateria)) {
+        AgregarComponentes(componentesID, bateria, mouse.x, mouse.y, 12, 0, 5, 50);
+    }
+
+    if (RectClick(btnCarga)) {
+        AgregarComponentes(componentesID, carga, mouse.x, mouse.y, 12, 60, 0, 0);
+    }
+
+
         for (int i = componentesID->cuenta - 1; i >= 0; i--) {
             Componente *componente = &componentesID->componentes[i];
             Rectangle rect = Componente_Rect(componente);
