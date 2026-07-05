@@ -158,8 +158,8 @@ static void DrawConexion(const ListaComponentes *listacomp, const ListaConexione
             continue;
         }
 
-        Vector2 a = Component_GetCenter(terminal1);
-        Vector2 b = Component_GetCenter(terminal2);
+        Vector2 a = Centro_Componente(terminal1);
+        Vector2 b = Centro_Componente(terminal2);
         DrawLineEx(a, b, 4.0f, DARKGRAY);
         DrawCircleV(a, 5.0f, DARKGRAY);
         DrawCircleV(b, 5.0f, DARKGRAY);
@@ -247,20 +247,20 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         int id = ObtenerComponenteBajoMouse(componentes);
 
         if (id != -1) {
-            state->origenID = id;
+            state->desdeID = id;
             state->arrastrando = 1;
             printf("Inicio conexion desde %d\n", id);
         }
     }   
-       
+
     if (state->arrastrando && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
 
-    int id = ObtenerComponenteBajoMouse(componentes);
+        int id = ObtenerComponenteBajoMouse(componentesID);
 
-    if (id != -1 && id != state->origenID) {
-        AgregarConexiones(conexiones, state->origenID, id);
-        printf("Conexion creada: %d -> %d\n", state->origenID, id);
-    }
+        if (id != -1 && id != state->desdeID) {
+            AgregarConexiones(conexionesID, state->desdeID, id);
+            printf("Conexion creada: %d -> %d\n", state->desdeID, id);
+        }
 
     state->arrastrando = 0;
     }
@@ -369,7 +369,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
 ///////////////////////////////////////////////////////////
     DrawConexion(componentesID, conexionesID);
     if (state->arrastrando) {
-        const Componente *origen = Buscar_ComponenteID(componentes, state->origenID);
+        const Componente *origen = Buscar_ComponenteID(componentesID, state->desdeID);
 
         if (origen) {
             Vector2 a = Centro_Componente(origen);
