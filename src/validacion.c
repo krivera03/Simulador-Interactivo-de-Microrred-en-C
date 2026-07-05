@@ -21,6 +21,10 @@ static int TensionesCompatibles(float v1, float v2)
 static Componente *BuscarComponentePorTipo(ListaComponentes *componentes,
                                            TipoComponente tipo)
 {
+    if (componentes == 0) {
+        return 0;
+    }
+
     for (int i = 0; i < componentes->cuenta; i++) {
         if (componentes->componentes[i].tipo == tipo) {
             return &componentes->componentes[i];
@@ -32,6 +36,10 @@ static Componente *BuscarComponentePorTipo(ListaComponentes *componentes,
 
 static int ExisteConexionEntre(ListaConexiones *conexiones, int idA, int idB)
 {
+    if (conexiones == 0) {
+        return 0;
+    }
+
     return ExisteConexion(conexiones, idA, idB) ||
            ExisteConexion(conexiones, idB, idA);
 }
@@ -64,6 +72,7 @@ ResultadoValidacion ValidarMicrorred(ListaComponentes *componentes,
     Componente *bat = BuscarComponentePorTipo(componentes, bateria);
     Componente *load = BuscarComponentePorTipo(componentes, carga);
     Componente *ctrl = BuscarComponentePorTipo(componentes, controlador);
+    Componente *conv = BuscarComponentePorTipo(componentes, convertidor);
 
     if (solar == 0) {
         snprintf(resultado.mensaje,
@@ -76,6 +85,13 @@ ResultadoValidacion ValidarMicrorred(ListaComponentes *componentes,
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_VALIDACION,
                  "Error: falta el controlador.");
+        return resultado;
+    }
+
+    if (conv == 0) {
+        snprintf(resultado.mensaje,
+                 TAMANO_MENSAJE_VALIDACION,
+                 "Error: falta el convertidor.");
         return resultado;
     }
 
@@ -100,17 +116,24 @@ ResultadoValidacion ValidarMicrorred(ListaComponentes *componentes,
         return resultado;
     }
 
-    if (!ExisteConexionEntre(conexiones, ctrl->id, bat->id)) {
+    if (!ExisteConexionEntre(conexiones, bat->id, ctrl->id)) {
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_VALIDACION,
                  "Error: la bateria debe estar conectada al controlador.");
         return resultado;
     }
 
-    if (!ExisteConexionEntre(conexiones, ctrl->id, load->id)) {
+    if (!ExisteConexionEntre(conexiones, conv->id, ctrl->id)) {
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_VALIDACION,
-                 "Error: la carga debe estar conectada al controlador.");
+                 "Error: el convertidor debe estar conectado al controlador.");
+        return resultado;
+    }
+
+    if (!ExisteConexionEntre(conexiones, load->id, conv->id)) {
+        snprintf(resultado.mensaje,
+                 TAMANO_MENSAJE_VALIDACION,
+                 "Error: la carga debe estar conectada al convertidor.");
         return resultado;
     }
 
@@ -128,24 +151,38 @@ ResultadoValidacion ValidarMicrorred(ListaComponentes *componentes,
         return resultado;
     }
 
-    if (!TensionesCompatibles(load->voltajeDC, ctrl->voltajeDC)) {
+    if (!TensionesCompatibles(conv->voltajeDC, ctrl->voltajeDC)) {
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_VALIDACION,
-                 "Error: la tension DC de la carga no es compatible con el controlador.");
+                 "Error: la tension DC del convertidor no es compatible con el controlador.");
         return resultado;
     }
 
-    if (ctrl->potencia < load->potencia) {
+    if (!TensionesCompatibles(load->voltajeAC, conv->voltajeAC)) {
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_VALIDACION,
-                 "Error: el controlador no tiene capacidad suficiente para alimentar la carga.");
+                 "Error: la tension AC de la carga no es compatible con el convertidor.");
+        return resultado;
+    }
+
+    if (ctrl->potencia < conv->potencia) {
+        snprintf(resultado.mensaje,
+                 TAMANO_MENSAJE_VALIDACION,
+                 "Error: el controlador no tiene capacidad suficiente para alimentar el convertidor.");
+        return resultado;
+    }
+
+    if (conv->potencia < load->potencia) {
+        snprintf(resultado.mensaje,
+                 TAMANO_MENSAJE_VALIDACION,
+                 "Error: el convertidor no tiene capacidad suficiente para alimentar la carga.");
         return resultado;
     }
 
     resultado.valido = 1;
     snprintf(resultado.mensaje,
              TAMANO_MENSAJE_VALIDACION,
-             "Sistema valido: componentes, conexiones, tension DC y potencia compatibles.");
+             "Sistema valido: panel, bateria y convertidor conectados al controlador; carga conectada al convertidor.");
 
     return resultado;
 }

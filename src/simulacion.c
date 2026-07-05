@@ -19,6 +19,10 @@ static float LimitarValor(float valor, float minimo, float maximo)
 static Componente *BuscarComponentePorTipo(ListaComponentes *componentes,
                                            TipoComponente tipo)
 {
+    if (componentes == 0) {
+        return 0;
+    }
+
     for (int i = 0; i < componentes->cuenta; i++) {
         if (componentes->componentes[i].tipo == tipo) {
             return &componentes->componentes[i];
@@ -59,8 +63,9 @@ ResultadoSimulacion SimularFlujoPotencia(ListaComponentes *componentes,
     Componente *solar = BuscarComponentePorTipo(componentes, panel_solar);
     Componente *bat = BuscarComponentePorTipo(componentes, bateria);
     Componente *load = BuscarComponentePorTipo(componentes, carga);
+    Componente *conv = BuscarComponentePorTipo(componentes, convertidor);
 
-    if (solar == 0 || bat == 0 || load == 0) {
+    if (solar == 0 || bat == 0 || load == 0 || conv == 0) {
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_SIMULACION,
                  "Error interno: faltan componentes para simular.");
@@ -90,15 +95,16 @@ ResultadoSimulacion SimularFlujoPotencia(ListaComponentes *componentes,
         float porcentaje_carga = (energia_excedente_Wh / capacidad_bateria_Wh) * 100.0f;
 
         resultado.estado_carga_final =
-            LimitarValor(resultado.estado_carga_inicial + porcentaje_carga, 0.0f, 100.0f);
+            LimitarValor(resultado.estado_carga_inicial + porcentaje_carga,
+                         0.0f,
+                         100.0f);
 
         bat->estado_carga = resultado.estado_carga_final;
-
         resultado.exitosa = 1;
 
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_SIMULACION,
-                 "Simulacion exitosa: el panel alimenta la carga. Excedente: %.2f W. La bateria se carga de %.2f%% a %.2f%%.",
+                 "Simulacion exitosa: el panel alimenta la carga mediante el convertidor. Excedente: %.2f W. La bateria se carga de %.2f%% a %.2f%%.",
                  resultado.excedente_W,
                  resultado.estado_carga_inicial,
                  resultado.estado_carga_final);
@@ -121,15 +127,16 @@ ResultadoSimulacion SimularFlujoPotencia(ListaComponentes *componentes,
             (energia_requerida_Wh / capacidad_bateria_Wh) * 100.0f;
 
         resultado.estado_carga_final =
-            LimitarValor(resultado.estado_carga_inicial - porcentaje_descarga, 0.0f, 100.0f);
+            LimitarValor(resultado.estado_carga_inicial - porcentaje_descarga,
+                         0.0f,
+                         100.0f);
 
         bat->estado_carga = resultado.estado_carga_final;
-
         resultado.exitosa = 1;
 
         snprintf(resultado.mensaje,
                  TAMANO_MENSAJE_SIMULACION,
-                 "Simulacion exitosa: el panel no alcanza y la bateria entrega %.2f W. Estado de carga: %.2f%% a %.2f%%.",
+                 "Simulacion exitosa: el panel no alcanza y la bateria entrega %.2f W hacia la carga mediante el convertidor. Estado de carga: %.2f%% a %.2f%%.",
                  resultado.potencia_bateria_W,
                  resultado.estado_carga_inicial,
                  resultado.estado_carga_final);
@@ -142,12 +149,11 @@ ResultadoSimulacion SimularFlujoPotencia(ListaComponentes *componentes,
     resultado.estado_carga_final = 0.0f;
 
     bat->estado_carga = resultado.estado_carga_final;
-
     resultado.exitosa = 0;
 
     snprintf(resultado.mensaje,
              TAMANO_MENSAJE_SIMULACION,
-             "Simulacion no exitosa: existe un deficit de %.2f W. La bateria no tiene energia suficiente.",
+             "Simulacion no exitosa: existe un deficit de %.2f W. La bateria no tiene energia suficiente para alimentar la carga mediante el convertidor.",
              resultado.deficit_W);
 
     return resultado;

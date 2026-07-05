@@ -37,17 +37,26 @@ int main(void)
                                        80.0f,
                                        -1.0f, -1.0f);
 
+    int idConvertidor = AgregarComponentes(&componentes, convertidor,
+                                           450.0f, 100.0f,
+                                           48.0f, 120.0f,
+                                           1500.0f,
+                                           0.0f,
+                                           0.0f,
+                                           -1.0f, -1.0f);
+
     int idCarga = AgregarComponentes(&componentes, carga,
-                                     500.0f, 100.0f,
-                                     48.0f, 0.0f,
+                                     600.0f, 100.0f,
+                                     0.0f, 120.0f,
                                      1000.0f,
                                      0.0f,
                                      0.0f,
                                      -1.0f, -1.0f);
 
     AgregarConexiones(&conexiones, idSolar, idControlador);
-    AgregarConexiones(&conexiones, idControlador, idBateria);
-    AgregarConexiones(&conexiones, idControlador, idCarga);
+    AgregarConexiones(&conexiones, idBateria, idControlador);
+    AgregarConexiones(&conexiones, idConvertidor, idControlador);
+    AgregarConexiones(&conexiones, idCarga, idConvertidor);
 
     ResultadoValidacion validacion = ValidarMicrorred(&componentes, &conexiones);
 
