@@ -57,7 +57,7 @@ static void DrawComponente(const Componente *componente, int seleccionado) {
     DrawRectangleRounded(rect, 0.15f, 10, color);
     DrawRectangleLinesEx(rect, seleccionado ? 4.0f : 2.0f, seleccionado ? RED : DARKGRAY);
 
-    DrawText(componente->Buscar_ComponenteNombre(componente->tipo), (int)componente->x + 12, (int)componente->y + 10, 18, DARKBLUE);
+    DrawText(Buscar_ComponenteNombre(componente->tipo), (int)componente->x + 12, (int)componente->y + 10, 18, DARKBLUE);
 
     char texto[96];
     snprintf(texto, sizeof(texto), "V: %.0f V", componente->voltaje);
