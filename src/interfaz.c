@@ -78,8 +78,8 @@ static void DrawComponente(const Componente *componente) {
         break;
     case 1: // bateria
         snprintf(texto, sizeof(texto), "SOC: %.0f%%", componente->estado_carga);
-        DrawText(texto, (int)componente->x+WIDTH/2, (int)componente->y+60, 16, RAYWHITE);
-        snprintf(texto, sizeof(texto), "Cap: %.0f Ah", componente->capacidad_Ah);
+        DrawText(texto, (int)componente->x+WIDTH/2-5, (int)componente->y+60, 16, RAYWHITE);
+        snprintf(texto, sizeof(texto), "%.2f Ah", componente->capacidad_Ah);
         break;
     case 2: // carga    
         snprintf(texto, sizeof(texto), "%.0f W", componente->potencia);
