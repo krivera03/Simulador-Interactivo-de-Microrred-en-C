@@ -200,6 +200,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             }
                             }
                         }
+                        
     if (LeftClick(btnPanel)) {
         AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 0, 30, 0, 0, -1, -1);
     }
@@ -217,7 +218,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     }
     if (LeftClick(btnConvertidor)) {
         AgregarComponentes(componentesID, convertidor, mouse.x, mouse.y, 12, 120, 500, 0, 0, -1, -1);
-
+    }
 
         for (int i = componentesID->cuenta - 1; i >= 0; i--) {
             Componente *componente = &componentesID->componentes[i];
