@@ -330,11 +330,11 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     }
 
     if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)&&!state->dibujando) {
+        int id_eliminado =-1;
         for (int i = componentesID->cuenta - 1; i >= 0; i--) {
             Componente *componente = &componentesID->componentes[i];
             Rectangle rect = Componente_Rect(componente);
-            int id_eliminado =-1;
-
+        
             if (RightClick(rect)) {
                 // Eliminar el componente de la lista
                 for (int j = i; j < componentesID->cuenta - 1; j++) {
