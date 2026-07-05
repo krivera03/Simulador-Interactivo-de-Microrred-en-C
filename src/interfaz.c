@@ -4,7 +4,7 @@
 #define HEIGHT 50
 
 
-static Vector2 Centro_Componente(const Componente *commponente) { //retorna el centro del componente
+static Vector2 Centro_Componente(const Componente *componente) { //retorna el centro del componente
     Vector2 centro;
     centro.x = componente->x;
     centro.y = componente->y; // x y del rectangulo es 
