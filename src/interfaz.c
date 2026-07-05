@@ -256,7 +256,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         }
     }   
 
-    if (state->arrastrando_linea && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+    if (state->arrastrando_linea && IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) {
 
         int id = ObtenerComponenteBajoMouse(componentesID);
 
@@ -338,7 +338,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         state->arrastrando = 0;
     }
 
-    if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) {
+    if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)&&!state->dibujando) {
         for (int i = componentesID->cuenta - 1; i >= 0; i--) {
             Componente *componente = &componentesID->componentes[i];
             Rectangle rect = Componente_Rect(componente);
@@ -370,8 +370,12 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
 
    // DrawText("Simulador Interactivo de Microrred en C", 260, 25, 28, DARKBLUE);
     //DrawText("Sistema base: panel solar + controlador + bateria + carga", 260, 62, 18, DARKGRAY);
-
-    DrawRectangleLinesEx((Rectangle){220, 0, 805, 700}, 4.0f, LIGHTGRAY);
+    if (state->dibujando) {
+        DrawRectangleLinesEx((Rectangle){220, 0, 805, 700}, 4.0f, GRAY);
+    } else {
+        DrawRectangleLinesEx((Rectangle){220, 0, 805, 700}, 4.0f, LIGHTGRAY);
+    }
+    
     DrawText("Area de trabajo", 240, 30, 18, GRAY);
 
     // Agregar funcion para dibujar conexiones entre componentes
