@@ -176,7 +176,30 @@ static void DrawConexion(const ListaComponentes *listacomp, const ListaConexione
     }
 }
 
+static void DrawTextWrapped(const char *text, int x, int y, int fontSize, int maxWidth, Color color) {
 
+    int len = strlen(text);
+
+    // recorrer buscando punto de corte
+    for (int i = len; i > 0; i--) {
+
+        char buffer[512];
+        strncpy(buffer, text, i);
+        buffer[i] = '\0';
+
+        if (MeasureText(buffer, fontSize) <= maxWidth) {
+
+            // 
+            DrawText(buffer, x, y, fontSize, color);
+
+            // 
+            if (i < len) {
+                DrawText(text + i, x, y + fontSize + 5, fontSize, color);
+            }
+
+            return;
+        }
+    }}
 
 
 
@@ -426,10 +449,12 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     DrawText("Resultado:", 220+100, 600 + 25, 18, DARKBLUE);
 
     //Implementar pestaña de resultados de validacion y simulacion
+
+  
     if (state->estado_simulacion) {
-        DrawText(state->resultado_simulacion.mensaje, 220+200, 600 + 25, 16, state->resultado_simulacion.exitosa ? DARKGREEN : RED);
+        DrawTextWrapped(state->resultado_simulacion.mensaje, 220+200, 600 + 25, 16, 805-200-20, state->resultado_simulacion.exitosa ? DARKGREEN : RED);
     } else if (state->estado_validacion) {
-        DrawText(state->resultado_validacion.mensaje, 220+200, 600 + 25, 16, state->resultado_validacion.valido ? DARKGREEN : RED);
+        DrawTextWrapped(state->resultado_validacion.mensaje, 220+200, 600 + 25, 16, 805-200-20, state->resultado_validacion.valido ? DARKGREEN : RED);
     } else {
         DrawText("Presione Validar o Simular.", 220+200, 600 + 25, 16, DARKGRAY);
     }
