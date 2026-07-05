@@ -260,7 +260,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     }
 }
 
-    if (state->dibujando&& state->arrastrando_linea && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+    if (state->dibujando && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && state->arrastrando_linea) {
 
         int id = ObtenerComponenteBajoMouse(componentesID);
 
