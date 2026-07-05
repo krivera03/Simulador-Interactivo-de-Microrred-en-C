@@ -213,14 +213,14 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
             if (componente->x < 180.0f) {
                 componente->x = 180.0f;
             }
-            if (componente->y < 50.0f) {
-                componente->y = 50.0f;
+            if (componente->y < 0.0f) {
+                componente->y = 0.0f;
             }
-            if (componente->x > (float)GetScreenWidth() - 20.0f) {
-                componente->x = (float)GetScreenWidth() - WIDTH/2.0f - 130.0f;
+            if (componente->x > 1000.0f) {
+                componente->x = 1000.0f;
             }
-            if (componente->y > (float)GetScreenHeight() - HEIGHT/2.0f) {
-                componente->y = (float)GetScreenHeight() - HEIGHT/2.0f;
+            if (componente->y > 700.0f) {
+                componente->y = 700.0f;
             }
         }
     }
@@ -262,8 +262,8 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
    // DrawText("Simulador Interactivo de Microrred en C", 260, 25, 28, DARKBLUE);
     //DrawText("Sistema base: panel solar + controlador + bateria + carga", 260, 62, 18, DARKGRAY);
 
-    DrawRectangleLinesEx((Rectangle){200,  -GetScreenHeight(), -GetScreenWidth() + 200 + 130, -GetScreenHeight()}, 2.0f, LIGHTGRAY);
-    DrawText("Area de trabajo", 240, GetScreenHeight() - 30, 18, GRAY);
+    DrawRectangleLinesEx((Rectangle){200,  0, 1000, 700}, 2.0f, LIGHTGRAY);
+    DrawText("Area de trabajo", 240, 30, 18, GRAY);
 
     // Agregar funcion para dibujar conexiones entre componentes
 
@@ -272,12 +272,12 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
         DrawComponente(&componentesID->componentes[i]);
     }
 
-    DrawBoton((Rectangle){-GetScreenWidth() + 130, -GetScreenHeight() + 50, 130, 50}, "Validar");
-    DrawBoton((Rectangle){-GetScreenWidth() + 130, -GetScreenHeight() + 50*2, 130, 50}, "Simular");
-    DrawBoton((Rectangle){-GetScreenWidth() + 130, -GetScreenHeight() + 50*3, 130, 50}, "Reiniciar caso");
+    DrawBoton((Rectangle){1200-130, 50, 130, 50}, "Validar");
+    DrawBoton((Rectangle){1200-130, 50*2, 130, 50}, "Simular");
+    DrawBoton((Rectangle){1200-130, 50*3, 130, 50}, "Reiniciar caso");
 
-    DrawRectangleRounded((Rectangle){GetScreenWidth() - 130, GetScreenHeight() - 50*4, 130, GetScreenHeight() - 50*4}, 0.12f, 8, (Color){245, 245, 245, 255});
-    DrawText("Resultado:", GetScreenWidth() - 130, GetScreenHeight() - 50*5 + 26, 18, DARKBLUE);
+    DrawRectangleRounded((Rectangle){1200-130, 50*4, 130, 50*4}, 0.12f, 8, (Color){245, 245, 245, 255});
+    DrawText("Resultado:", 1200-130, 50*5 + 26, 18, DARKBLUE);
     //Implementar pestaña de resultados de validacion y simulacion
     EndDrawing();
 }
