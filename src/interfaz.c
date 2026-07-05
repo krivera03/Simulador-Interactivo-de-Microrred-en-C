@@ -234,7 +234,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     Rectangle btnBateria = {25, 235, 170, 45};
     Rectangle btnCarga = {25, 295, 170, 45};
     Rectangle btnConvertidor = {25, 355, 170, 45};
-    ///////////////////////////////////////////////////////
+    ///////////////////////////////////
     Rectangle btnDibujar = {25, 415, 170, 45};
 
     if (LeftClick(btnDibujar)) {
@@ -294,12 +294,13 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
 
             if (LeftClick(rect)) {
                 state->componente_seleccionado = componente->id;
+                ////////////////////////////////////
                 if (state->dibujando ==0) {
                     state->arrastrando = 1;
                     state->desplazamiento_x = mouse.x - componente->x;
                     state->desplazamiento_y = mouse.y - componente->y;
                 }
-                
+                /////////////////////////////////////
                 break;
             }
         }
@@ -308,8 +309,13 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     if (state->arrastrando && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
         Componente *componente = Buscar_ComponenteID(componentesID, state->componente_seleccionado);
         if (componente != NULL) {
-            componente->x = mouse.x - state->desplazamiento_x;
+            ///////////////////////////////////////
+            if (state->dibujando == 0) {
+                componente->x = mouse.x - state->desplazamiento_x;
             componente->y = mouse.y - state->desplazamiento_y;
+            }
+            /////////////////////////////////
+            
             // limites de pantalla para que no se salga de la zona de trabajo
             if (componente->x < 220) {
                 componente->x = 220;
@@ -372,7 +378,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
         //int componente_seleccionado = componentesID->componentes[i].id == state->componente_seleccionado;
         DrawComponente(&componentesID->componentes[i]);
     }
-///////////////////////////////////////////////////////////
+////////////////////////////////////
     DrawConexion(componentesID, conexionesID);
     if (state->arrastrando_linea) {
         const Componente *origen = Buscar_ComponenteID(componentesID, state->desdeID);
