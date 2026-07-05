@@ -245,7 +245,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         else
             printf("Dibujando desactivado\n");
     }
-    if (state->dibujando && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !state->arrastrando_linea) {
+    if (state->dibujando && IsMouseButtonDown(MOUSE_LEFT_BUTTON) && !state->arrastrando_linea) {
 
         int id = ObtenerComponenteBajoMouse(componentesID);
 
