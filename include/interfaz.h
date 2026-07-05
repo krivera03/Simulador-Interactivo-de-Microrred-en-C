@@ -6,6 +6,8 @@
 #include "simulacion.h"
 #include "validacion.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 typedef struct {
 
     int componente_seleccionado;
