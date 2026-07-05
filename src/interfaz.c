@@ -292,8 +292,11 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             if (LeftClick(rect)) {
                 state->componente_seleccionado = componente->id;
                 state->arrastrando = 1;
-                state->desplazamiento_x = mouse.x - componente->x;
-                state->desplazamiento_y = mouse.y - componente->y;
+                if (state->dibujando ==0) {
+                    state->desplazamiento_x = mouse.x - componente->x;
+                    state->desplazamiento_y = mouse.y - componente->y;
+                }
+                
                 break;
             }
         }
