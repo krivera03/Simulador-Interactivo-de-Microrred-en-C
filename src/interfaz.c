@@ -213,11 +213,11 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
 
     DrawPanelComponentes();
 
-    DrawText("Simulador Interactivo de Microrred en C", 260, 25, 28, DARKBLUE);
-    DrawText("Sistema base: panel solar + controlador + bateria + carga", 260, 62, 18, DARKGRAY);
+   // DrawText("Simulador Interactivo de Microrred en C", 260, 25, 28, DARKBLUE);
+    //DrawText("Sistema base: panel solar + controlador + bateria + carga", 260, 62, 18, DARKGRAY);
 
-    DrawRectangleLinesEx((Rectangle){250, 95, 820, 485}, 2.0f, LIGHTGRAY);
-    DrawText("Area de trabajo", 270, 110, 18, GRAY);
+    DrawRectangleLinesEx((Rectangle){200,  GetScreenHeight(), GetScreenWidth() - 200 - 130, GetScreenHeight()}, 2.0f, LIGHTGRAY);
+    DrawText("Area de trabajo", 240, GetScreenHeight() - 30, 18, GRAY);
 
     // Agregar funcion para dibujar conexiones entre componentes
 
@@ -231,7 +231,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
     DrawBoton((Rectangle){GetScreenWidth() - 130, GetScreenHeight() - 50*3, 130, 50}, "Reiniciar caso");
 
     DrawRectangleRounded((Rectangle){GetScreenWidth() - 130, GetScreenHeight() - 50*4, 130, GetScreenHeight() - 50*4}, 0.12f, 8, (Color){245, 245, 245, 255});
-    DrawText("Resultado:", GetScreenWidth() - 130/2, GetScreenHeight() - 50*5 + 26, 18, DARKBLUE);
+    DrawText("Resultado:", GetScreenWidth() - 130, GetScreenHeight() - 50*5 + 26, 18, DARKBLUE);
     //Implementar pestaña de resultados de validacion y simulacion
     EndDrawing();
 }
