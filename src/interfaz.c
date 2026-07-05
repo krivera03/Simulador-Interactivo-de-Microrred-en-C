@@ -63,11 +63,11 @@ static void DrawComponente(const Componente *componente) {
     DrawText(Buscar_ComponenteNombre(componente->tipo), (int)componente->x+5, (int)componente->y+HEIGHT/2, 18, RAYWHITE);
 
     char texto[96];
-    snprintf(texto, sizeof(texto), "DC%.0f V", componente->voltajeDC);
+    snprintf(texto, sizeof(texto), "%.0f Vdc", componente->voltajeDC);
     
-    DrawText(texto, (int)componente->x+15 , (int)componente->y+20, 16, RAYWHITE);
+    DrawText(texto, (int)componente->x+5 , (int)componente->y+20, 16, RAYWHITE);
     
-    snprintf(texto, sizeof(texto), "AC%.0f V", componente->voltajeAC);
+    snprintf(texto, sizeof(texto), "%.0f Vac", componente->voltajeAC);
     
     DrawText(texto, (int)componente->x+40 , (int)componente->y+20, 16, RAYWHITE);
     switch (componente->tipo) {
@@ -81,7 +81,10 @@ static void DrawComponente(const Componente *componente) {
         snprintf(texto, sizeof(texto), "%.0f W", componente->potencia);
         break;
     case 3: // controlador
-        snprintf(texto, sizeof(texto), "Bat Load");
+        snprintf(texto, sizeof(texto), "Bat   Load");
+        break;
+    case 4: // convertidor
+        snprintf(texto, sizeof(texto), " %.0f W", componente->potencia);
         break;
     
     default:
