@@ -132,9 +132,9 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
         return;
     }
 
-    Rectangle boton_validar = {GetScreenWidth() - 130, GetScreenHeight() - 50, 130, 50};
-    Rectangle boton_simular = {GetScreenWidth() - 130, GetScreenHeight() - 50*2, 130, 50};
-    Rectangle boton_reiniciar = {GetScreenWidth() - 130, GetScreenHeight() - 50*3, 130, 50};
+    Rectangle boton_validar = { 1200-130-25, 50, 130, 50};
+    Rectangle boton_simular = {1200-130-25, 50*2, 130, 50};
+    Rectangle boton_reiniciar = {1200-130-25, 50*3, 130, 50};
     if (LeftClick(boton_validar)) {
         printf("Validar\n");
     }
@@ -142,7 +142,7 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
         printf("Simular\n");
     }
     if (LeftClick(boton_reiniciar)) {
-        printf("Reiniciar caso\n");
+        printf("Reiniciar\n");
     }
 /**
     if (RectClick(boton_validar)) {
@@ -262,7 +262,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
    // DrawText("Simulador Interactivo de Microrred en C", 260, 25, 28, DARKBLUE);
     //DrawText("Sistema base: panel solar + controlador + bateria + carga", 260, 62, 18, DARKGRAY);
 
-    DrawRectangleLinesEx((Rectangle){200, 0, 1000, 700}, 4.0f, LIGHTGRAY);
+    DrawRectangleLinesEx((Rectangle){200, 0, 845, 700}, 4.0f, LIGHTGRAY);
     DrawText("Area de trabajo", 240, 30, 18, GRAY);
 
     // Agregar funcion para dibujar conexiones entre componentes
@@ -272,12 +272,12 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
         DrawComponente(&componentesID->componentes[i]);
     }
 
-    DrawBoton((Rectangle){1200-130-26, 50, 130, 50}, "Validar");
-    DrawBoton((Rectangle){1200-130-26, 50*2, 130, 50}, "Simular");
-    DrawBoton((Rectangle){1200-130-26, 50*3, 130, 50}, "Reiniciar caso");
+    DrawBoton((Rectangle){1200-130-25, 50, 130, 50}, "Validar");
+    DrawBoton((Rectangle){1200-130-25, 50*2, 130, 50}, "Simular");
+    DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar");
 
-    DrawRectangleRounded((Rectangle){1200-130-26, 50*4, 130, 50*4}, 0.12f, 8, (Color){245, 45, 245, 255});
-    DrawText("Resultado:", 1200-130-26, 50*5 + 26, 18, DARKBLUE);
+    DrawRectangleRounded((Rectangle){1200-130-25, 50*4, 130, 50*4}, 0.12f, 8, LIGHTGRAY);
+    DrawText("Resultado:", 1200-130-25, 50*5 + 25, 18, DARKBLUE);
     //Implementar pestaña de resultados de validacion y simulacion
     EndDrawing();
 }
