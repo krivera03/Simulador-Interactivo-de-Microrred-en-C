@@ -59,11 +59,11 @@ static void DrawComponente(const Componente *componente) {
     DrawRectangleRounded(rect, 0.15f, 10, color);
     //DrawRectangleLinesEx(rect, seleccionado ? 4.0f : 2.0f, seleccionado ? RED : DARKGRAY);
 
-    DrawText(Buscar_ComponenteNombre(componente->tipo), (int)componente->x, (int)componente->y+35, 18, DARKGRAY);
+    DrawText(Buscar_ComponenteNombre(componente->tipo), (int)componente->x-WIDTH/2, (int)componente->y+HEIGHT/2, 18, DARKGRAY);
 
     char texto[96];
     snprintf(texto, sizeof(texto), "%.0f V", componente->voltaje);
-    DrawText(texto, (int)componente->x , (int)componente->y+55, 16, DARKGRAY);
+    DrawText(texto, (int)componente->x-WIDTH/2 , (int)componente->y, 16, DARKGRAY);
     switch (componente->tipo) {
     case 0: // panel_solar
         snprintf(texto, sizeof(texto), " %.0f W", componente->potencia);
@@ -82,7 +82,7 @@ static void DrawComponente(const Componente *componente) {
         snprintf(texto, sizeof(texto), "Desconocido");
     }
 
-    DrawText(texto, (int)componente->x, (int)componente->y+75, 16, DARKGRAY);
+    DrawText(texto, (int)componente->x, (int)componente->y, 16, DARKGRAY);
 }
 
 
@@ -167,10 +167,10 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
 
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 
-    Rectangle btnPanel = {25, 115, 180, 45};
-    Rectangle btnControlador = {25, 175, 180, 45};
-    Rectangle btnBateria = {25, 235, 180, 45};
-    Rectangle btnCarga = {25, 295, 180, 45};
+    Rectangle btnPanel = {25, 115, 170, 45};
+    Rectangle btnControlador = {25, 175, 170, 45};
+    Rectangle btnBateria = {25, 235, 170, 45};
+    Rectangle btnCarga = {25, 295, 170, 45};
 
     if (LeftClick(btnPanel)) {
         AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 100, 0, 0);
@@ -262,7 +262,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
    // DrawText("Simulador Interactivo de Microrred en C", 260, 25, 28, DARKBLUE);
     //DrawText("Sistema base: panel solar + controlador + bateria + carga", 260, 62, 18, DARKGRAY);
 
-    DrawRectangleLinesEx((Rectangle){200,  0, 1000, 700}, 2.0f, LIGHTGRAY);
+    DrawRectangleLinesEx((Rectangle){200, 0, 1000, 700}, 4.0f, LIGHTGRAY);
     DrawText("Area de trabajo", 240, 30, 18, GRAY);
 
     // Agregar funcion para dibujar conexiones entre componentes
@@ -272,12 +272,12 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID) {
         DrawComponente(&componentesID->componentes[i]);
     }
 
-    DrawBoton((Rectangle){1200-130, 50, 130, 50}, "Validar");
-    DrawBoton((Rectangle){1200-130, 50*2, 130, 50}, "Simular");
-    DrawBoton((Rectangle){1200-130, 50*3, 130, 50}, "Reiniciar caso");
+    DrawBoton((Rectangle){1200-130-26, 50, 130, 50}, "Validar");
+    DrawBoton((Rectangle){1200-130-26, 50*2, 130, 50}, "Simular");
+    DrawBoton((Rectangle){1200-130-26, 50*3, 130, 50}, "Reiniciar caso");
 
-    DrawRectangleRounded((Rectangle){1200-130, 50*4, 130, 50*4}, 0.12f, 8, (Color){245, 245, 245, 255});
-    DrawText("Resultado:", 1200-130, 50*5 + 26, 18, DARKBLUE);
+    DrawRectangleRounded((Rectangle){1200-130-26, 50*4, 130, 50*4}, 0.12f, 8, (Color){245, 45, 245, 255});
+    DrawText("Resultado:", 1200-130-26, 50*5 + 26, 18, DARKBLUE);
     //Implementar pestaña de resultados de validacion y simulacion
     EndDrawing();
 }
