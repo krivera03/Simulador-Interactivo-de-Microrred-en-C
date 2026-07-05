@@ -263,24 +263,28 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         state->arrastrando_linea = 0;
         state->desdeID = -1;
     }
-    ////////////////////////////////////       
-    if (LeftClick(btnPanel)) {
-        AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 0, 30, 0, 0, -1, -1);
-    }
+    ////////////////////////////////////   
+    if (state->dibujando) {
+       
+        if (LeftClick(btnPanel)) {
+            AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 0, 30, 0, 0, -1, -1);
+        }
 
-    if (LeftClick(btnControlador)) {
-        AgregarComponentes(componentesID, controlador, mouse.x, mouse.y, 12, 0, 500, 0, 0, -1, -1);
-    }
+        if (LeftClick(btnControlador)) {
+            AgregarComponentes(componentesID, controlador, mouse.x, mouse.y, 12, 0, 500, 0, 0, -1, -1);
+        }
 
-    if (LeftClick(btnBateria)) {
-        AgregarComponentes(componentesID, bateria, mouse.x, mouse.y, 12, 0, 12*2.2, 2.2, 50, -1, -1);
-    }
+        if (LeftClick(btnBateria)) {
+            AgregarComponentes(componentesID, bateria, mouse.x, mouse.y, 12, 0, 12*2.2, 2.2, 50, -1, -1);
+        }
 
-    if (LeftClick(btnCarga)) {
-        AgregarComponentes(componentesID, carga, mouse.x, mouse.y, 0, 120, 60, 0, 0, -1, -1);
-    }
-    if (LeftClick(btnConvertidor)) {
-        AgregarComponentes(componentesID, convertidor, mouse.x, mouse.y, 12, 120, 500, 0, 0, -1, -1);
+        if (LeftClick(btnCarga)) {
+            AgregarComponentes(componentesID, carga, mouse.x, mouse.y, 0, 120, 60, 0, 0, -1, -1);
+        }
+        if (LeftClick(btnConvertidor)) {
+            AgregarComponentes(componentesID, convertidor, mouse.x, mouse.y, 12, 120, 500, 0, 0, -1, -1);
+        }
+
     }
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         for (int i = componentesID->cuenta - 1; i >= 0; i--) {
