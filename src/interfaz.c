@@ -7,8 +7,8 @@
 
 static Vector2 Centro_Componente(const Componente *componente) { //retorna el centro del componente
     Vector2 centro;
-    centro.x = componente->x;
-    centro.y = componente->y; // x y del rectangulo es 
+    centro.x = componente->x+WIDTH/2; // x y del rectangulo es la esquina superior izquierda, por eso se suma la mitad del ancho y se suma la mitad de la altura
+    centro.y = componente->y+HEIGHT/2; // x y del rectangulo es 
     return centro;
 }
 
@@ -266,6 +266,8 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         }
 
         state->arrastrando_linea = 0;
+        state->desdeID = -1;
+        state->hastaID = -1;
     }
     ////////////////////////////////////       
     if (LeftClick(btnPanel)) {
@@ -394,7 +396,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
         }
     }
 
-    ////////////////////////////////
+    //////////////////////////////////
     DrawBoton((Rectangle){1200-130-25, 50, 130, 50}, "Validar");
     DrawBoton((Rectangle){1200-130-25, 50*2, 130, 50}, "Simular");
     DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar");
