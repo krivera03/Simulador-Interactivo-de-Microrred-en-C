@@ -245,7 +245,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         else
             printf("Dibujando desactivado\n");
     }
-    if (state->dibujando && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && state->arrastrando_linea==0) {
+    if (state->dibujando && IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && state->arrastrando_linea == 0) {
 
         int id = ObtenerComponenteBajoMouse(componentesID);
 
@@ -253,10 +253,10 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             state->desdeID = id;
             state->arrastrando_linea = 1;
             printf("Inicio conexion desde %d\n", id);
-        }
-    }   
+    }
+}
 
-    if (state->arrastrando_linea && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+    if (state->arrastrando_linea && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
 
         int id = ObtenerComponenteBajoMouse(componentesID);
 
@@ -265,9 +265,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             printf("Conexion creada: %d -> %d\n", state->desdeID, id);
         }
 
-    state->arrastrando_linea = 0;
-    state->dibujando = 0;
-    printf("Dibujando desactivado\n");
+        state->arrastrando_linea = 0;
     }
     ////////////////////////////////////       
     if (LeftClick(btnPanel)) {
@@ -294,29 +292,28 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             Rectangle rect = Componente_Rect(componente);
 
 
-            if (LeftClick(rect)) {
+            if (LeftClick(rect) && !state->dibujando) {
+                //////////////////////////////////////
                 state->componente_seleccionado = componente->id;
-                ////////////////////////////////////
-                if (state->dibujando ==0) {
-                    state->arrastrando = 1;
-                    state->desplazamiento_x = mouse.x - componente->x;
-                    state->desplazamiento_y = mouse.y - componente->y;
-                }
+                state->arrastrando = 1;
+                state->desplazamiento_x = mouse.x - componente->x;
+                state->desplazamiento_y = mouse.y - componente->y;
+            
                 /////////////////////////////////////
                 break;
             }
         }
     }
 
-    if ((state->arrastrando || state->arrastrando_linea) && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+    if ((state->arrastrando) && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
         Componente *componente = Buscar_ComponenteID(componentesID, state->componente_seleccionado);
         if (componente != NULL) {
             ///////////////////////////////////////
-            if (state->dibujando == 0) {
+            if (!state->dibujando) {
                 componente->x = mouse.x - state->desplazamiento_x;
-            componente->y = mouse.y - state->desplazamiento_y;
+                componente->y = mouse.y - state->desplazamiento_y;
             }
-            /////////////////////////////////
+            ////////////////////////////////////
             
             // limites de pantalla para que no se salga de la zona de trabajo
             if (componente->x < 220) {
