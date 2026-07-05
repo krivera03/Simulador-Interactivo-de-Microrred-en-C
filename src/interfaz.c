@@ -375,7 +375,7 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     //DrawText("Sistema base: panel solar + controlador + bateria + carga", 260, 62, 18, DARKGRAY);
     if (state->dibujando) {
         DrawRectangleLinesEx((Rectangle){220, 0, 805, 600}, 4.0f, GRAY);
-        DrawRectangleRec((Rectangle){220, 0, 805, 600}, 4.0f, LIGHTGRAY);
+        DrawRectangleRec((Rectangle){220, 0, 805, 600}, LIGHTGRAY);
         DrawText("Modo dibujo Conexiones", 500, 30, 18, RAYWHITE);
     } else {
         DrawRectangleLinesEx((Rectangle){220, 0, 805, 600}, 4.0f, LIGHTGRAY);
