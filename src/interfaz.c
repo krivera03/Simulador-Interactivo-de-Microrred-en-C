@@ -318,8 +318,8 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
             if (componente->x > 805.0f-WIDTH+220.0f) {
                 componente->x = 805.0f-WIDTH+220.0f;
             }
-            if (componente->y > 700.0f-HEIGHT) {
-                componente->y = 700.0f-HEIGHT;
+            if (componente->y > 600.0f-HEIGHT) {
+                componente->y = 600.0f-HEIGHT;
             }
         }
     }
@@ -374,9 +374,11 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
    // DrawText("Simulador Interactivo de Microrred en C", 260, 25, 28, DARKBLUE);
     //DrawText("Sistema base: panel solar + controlador + bateria + carga", 260, 62, 18, DARKGRAY);
     if (state->dibujando) {
-        DrawRectangleLinesEx((Rectangle){220, 0, 805, 700}, 4.0f, GRAY);
+        DrawRectangleLinesEx((Rectangle){220, 0, 805, 600}, 4.0f, GRAY);
+        DrawRectangleRec((Rectangle){220, 0, 805, 600}, 4.0f, LIGHTGRAY);
+        DrawText("Modo dibujo Conexiones", 500, 30, 18, RAYWHITE);
     } else {
-        DrawRectangleLinesEx((Rectangle){220, 0, 805, 700}, 4.0f, LIGHTGRAY);
+        DrawRectangleLinesEx((Rectangle){220, 0, 805, 600}, 4.0f, LIGHTGRAY);
     }
     
     DrawText("Area de trabajo", 240, 30, 18, GRAY);
