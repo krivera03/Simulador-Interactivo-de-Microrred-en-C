@@ -42,7 +42,7 @@ static void DrawBoton(Rectangle rect, const char *text) { //Crea botones para va
 
     DrawRectangleRounded(rect, 0.18f, 8, lo_toca ? SKYBLUE : LIGHTGRAY); //debe
     DrawRectangleLinesEx(rect, 2.0f, DARKGRAY);
-    DrawText(text, (int)rect.x , (int)rect.y, 20, DARKBLUE);
+    DrawText(text, (int)rect.x+15 , (int)rect.y+15, 20, DARKBLUE);
 }
 
 static int LeftClick(Rectangle rect) {
@@ -63,7 +63,7 @@ static void DrawComponente(const Componente *componente) {
 
     char texto[96];
     snprintf(texto, sizeof(texto), "%.0f V", componente->voltaje);
-    DrawText(texto, (int)componente->x+5 , (int)componente->y+20, 16, RAYWHITE);
+    DrawText(texto, (int)componente->x+15 , (int)componente->y+20, 16, RAYWHITE);
     switch (componente->tipo) {
     case 0: // panel_solar
         snprintf(texto, sizeof(texto), " %.0f W", componente->potencia);
@@ -82,7 +82,7 @@ static void DrawComponente(const Componente *componente) {
         snprintf(texto, sizeof(texto), "Desconocido");
     }
 
-    DrawText(texto, (int)componente->x+5, (int)componente->y+40, 16, RAYWHITE);
+    DrawText(texto, (int)componente->x+5, (int)componente->y+60, 16, RAYWHITE);
 }
 
 
