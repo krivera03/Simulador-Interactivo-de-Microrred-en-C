@@ -148,7 +148,7 @@ static int ObtenerComponenteBajoMouse( ListaComponentes *lista) {
 
     for (int i = 0; i < lista->cuenta; i++) {
         Rectangle bounds = Componente_Rect(&lista->componentes[i]);
-        printf("Tipo de componente: %d, ID: %d, x: %.2f, y: %.2f\n", lista->componentes[i].tipo, lista->componentes[i].id, lista->componentes[i].x, lista->componentes[i].y);
+        //printf("Tipo de componente: %d, ID: %d, x: %.2f, y: %.2f\n", lista->componentes[i].tipo, lista->componentes[i].id, lista->componentes[i].x, lista->componentes[i].y);
         if (CheckCollisionPointRec(mouse, bounds)) {
             return lista->componentes[i].id;
         }
