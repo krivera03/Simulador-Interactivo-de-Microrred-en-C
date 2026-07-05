@@ -7,7 +7,7 @@ LDFLAGS = -lraylib -lm -lpthread -ldl -lrt -lX11
 VALGRIND = -Iinclude -g -O0 
 TARGET = prueba_interfaz
 SRC_DIR = src
-COMPLETO = $(SRC_DIR)/main_prueba.c $(SRC_DIR)/componentes.c $(SRC_DIR)/conexiones.c $(SRC_DIR)/interfaz.c $(SRC_DIR)/simulacion.c $(SRC_DIR)/validacion.c
+COMPLETO = $(SRC_DIR)/main_prueba.c $(SRC_DIR)/componentes.c $(SRC_DIR)/conexiones.c $(SRC_DIR)/interfaz.c 
 .PHONY: all clean run
 
 all: $(TARGET)
