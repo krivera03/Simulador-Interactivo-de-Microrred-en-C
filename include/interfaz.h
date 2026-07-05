@@ -3,6 +3,8 @@
 #include "raylib.h"
 #include "conexiones.h"
 #include "componentes.h"
+#include "simulacion.h"
+#include "validacion.h"
 #include <stdio.h>
 typedef struct {
 
@@ -11,7 +13,9 @@ typedef struct {
     float desplazamiento_x;
     float desplazamiento_y;
     int estado_validacion;
+    ResultadoValidacion resultado_validacion;
     int estado_simulacion;
+    ResultadoSimulacion resultado_simulacion;
     int dibujando;
     int desdeID;
     int hastaID;

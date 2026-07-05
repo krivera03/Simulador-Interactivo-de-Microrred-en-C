@@ -197,34 +197,26 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     Rectangle boton_validar = { 1200-130-25, 50, 130, 50};
     Rectangle boton_simular = {1200-130-25, 50*2, 130, 50};
     Rectangle boton_reiniciar = {1200-130-25, 50*3, 130, 50};
+
     if (LeftClick(boton_validar)) {
-        printf("Validar\n");
-    }
-    if (LeftClick(boton_simular)) {
-        printf("Simular\n");
-    }
-    if (LeftClick(boton_reiniciar)) {
-        printf("Reiniciar\n");
-    }
-/**
-    if (RectClick(boton_validar)) {
-        state->estado_validacion = FuncionValidar;
+        state->resultado_simulacion= ValidarConexion(componentesID, conexionesID)  ;
         state->estado_validacion = 1;
         state->estado_simulacion = 0;
     }
 
-    if (RectClick(boton_simular)) {
-        state->estado_simulacion = FuncionSimular;
+    if (LeftClick(boton_simular)) {
+        state->resultado_simulacion = SimularFlujoPotencia(componentesID, conexionesID);
         state->estado_simulacion = 1;
     }
 
-    if (RectClick(boton_reiniciar)) {
-        FuncionReiniciarCaso();
+    if (LeftClick(boton_reiniciar)) {
         state->estado_validacion = 0;
         state->estado_simulacion = 0;
         state->componente_id = -1;
+        Iniciar_ListaComponentes(&componentesID);
+        Iniciar_ListaConexiones(&conexionesID);
     }
- **/
+ 
     Vector2 mouse = GetMousePosition();
 
     
@@ -402,8 +394,16 @@ void I_Draw(const IState *state, const ListaComponentes *componentesID, const Li
     DrawBoton((Rectangle){1200-130-25, 50*3, 130, 50}, "Reiniciar");
 
     DrawRectangleRounded((Rectangle){1200-130-25, 50*4, 130, 500}, 0.12f, 8, LIGHTGRAY);
-    DrawText("Resultado:", 1200-130, 50*4+5 + 25, 18, DARKBLUE);
+    DrawText("Resultado:", 1200-130, 50*4 + 25, 18, DARKBLUE);
+
     //Implementar pestaña de resultados de validacion y simulacion
+    if (state->estado_simulacion) {
+        DrawText(state->resultado_simulacion.message, 1200-130, 50*5 + 25, 13, state->resultado_simulacion.exitosa ? DARKGREEN : RED);
+    } else if (state->estado_validacion) {
+        DrawText(state->resultado_validacion.message, 1200-130, 50*5 + 25, 13, state->resultado_validacion.valido ? DARKGREEN : RED);
+    } else {
+        DrawText("Presione Validar o Simular.", 1200-130, 50*5 + 25, 13, DARKGRAY);
+    }
     EndDrawing();
 }
 

@@ -24,7 +24,7 @@ typedef struct
     float potencia;
     float capacidad_Ah;
     float estado_carga;
-    float terminal_izquierda_id;
+    float terminal_izquierda_id;// No se usaron al final
     float terminal_derecha_id;
 } Componente;
 
