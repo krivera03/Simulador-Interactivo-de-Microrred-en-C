@@ -1,6 +1,7 @@
 #ifndef INTERFAZ_H
 #define INTERFAZ_H
 #include "raylib.h"
+#include "conexiones.h"
 #include "componentes.h"
 #include <stdio.h>
 typedef struct {

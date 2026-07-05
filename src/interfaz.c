@@ -63,8 +63,13 @@ static void DrawComponente(const Componente *componente) {
     DrawText(Buscar_ComponenteNombre(componente->tipo), (int)componente->x+5, (int)componente->y+HEIGHT/2, 18, RAYWHITE);
 
     char texto[96];
-    snprintf(texto, sizeof(texto), "%.0f V", componente->voltaje);
+    snprintf(texto, sizeof(texto), "DC%.0f V", componente->voltajeDC);
+    
     DrawText(texto, (int)componente->x+15 , (int)componente->y+20, 16, RAYWHITE);
+    
+    snprintf(texto, sizeof(texto), "AC%.0f V", componente->voltajeAC);
+    
+    DrawText(texto, (int)componente->x+40 , (int)componente->y+20, 16, RAYWHITE);
     switch (componente->tipo) {
     case 0: // panel_solar
         snprintf(texto, sizeof(texto), " %.0f W", componente->potencia);
@@ -193,8 +198,8 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
                 state->dibujando = 0;
                 printf("Dibujando desactivado\n");
             }
-           
-    }
+                            }
+                        }
     if (LeftClick(btnPanel)) {
         AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 0, 30, 0, 0, -1, -1);
     }
