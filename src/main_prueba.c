@@ -3,13 +3,19 @@
 #include "raylib.h"
 #include "componentes.h"
 #include "interfaz.h"
+#include "conexiones.h"
+#include "validacion.h"
+#include "simulacion.h"
 
 int main(void){   
     const int screenWidth = 1200;
     const int screenHeight = 700;
 
     ListaComponentes componentes;
+    ListaConexiones conexiones;
+    
     Iniciar_ListaComponentes(&componentes);
+    Iniciar_ListaConexiones(&conexiones);
     IState interfaz;
 
     IState_Init(&interfaz);
@@ -18,8 +24,8 @@ int main(void){
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
-        I_Update(&interfaz, &componentes);
-        I_Draw(&interfaz, &componentes);
+        I_Update(&interfaz, &componentes, &conexiones);
+        I_Draw(&interfaz, &componentes, &conexiones);
     }
 
     CloseWindow();

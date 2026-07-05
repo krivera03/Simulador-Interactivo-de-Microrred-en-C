@@ -8,7 +8,8 @@ typedef enum {
     panel_solar,
     bateria,
     carga,
-    controlador
+    controlador,
+    convertidor
 }  TipoComponente;
 
 /*Estructura que almacena toda la información necesaria de cada elemento*/
@@ -18,10 +19,13 @@ typedef struct
     TipoComponente tipo;
     float x;
     float y;
-    float voltaje;
+    float voltajeDC;
+    float voltajeAC;
     float potencia;
-    float capacidad_kWh;
-    float estado_carga
+    float capacidad_Ah;
+    float estado_carga;
+    float terminal_izquierda_id;
+    float terminal_derecha_id;
 } Componente;
 
 /*Lista para almacenar componentes*/
@@ -35,8 +39,8 @@ typedef struct
 void Iniciar_ListaComponentes(ListaComponentes *lista);
 
 /*Agrega los componentes a la lista*/
-int AgregarComponentes(ListaComponentes *lista, TipoComponente tipo, float x, float y, float voltaje, float potencia, float capacidad_kWh,
-                        float estado_carga);
+int AgregarComponentes(ListaComponentes *lista, TipoComponente tipo, float x, float y, float voltajeDC, float voltajeAC, float potencia, float capacidad_Ah,
+                        float estado_carga, float terminal_izquierda_id, float terminal_derecha_id);
 
 /*Buscar el componente por su id*/
 Componente *Buscar_ComponenteID(ListaComponentes *lista, int id) ;

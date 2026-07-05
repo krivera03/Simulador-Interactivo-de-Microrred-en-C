@@ -1,4 +1,5 @@
 #include "componentes.h"
+#include "conexiones.h"
 #include "interfaz.h"
 #define WIDTH 100
 #define HEIGHT 80
@@ -86,6 +87,8 @@ static void DrawComponente(const Componente *componente) {
 }
 
 
+
+
 static void DrawPanelComponentes(void) {
     DrawRectangle(0, 0, 100, GetScreenHeight(), (Color){236, 245, 245, 255});
     DrawText("Microrred", 28, 25, 30, DARKBLUE);
@@ -103,7 +106,14 @@ static void DrawPanelComponentes(void) {
     DrawRectangleRounded((Rectangle){25, 295, 170, 45}, 0.15f, 8, (Color){239, 71, 111, 255});
     DrawText("Carga", 45, 308, 18, RAYWHITE);
 
+    DrawRectangleRounded((Rectangle){25, 390, 170, 150}, 0.15f, 8, (Color){245, 245, 245, 255});
+    DrawText("Convertidor", 45, 403, 18, DARKBLUE);
+
+    DrawRectangleRounded((Rectangle){25, 560, 170, 45}, 0.15f, 8, (Color){200, 200, 200, 255});
+    DrawText("Dibujar", 45, 573, 18, DARKBLUE);
+
     //DrawText("MVP:", 28, 390, 18, DARKBLUE);
+
     DrawText("Arrastre los bloques", 28, 420, 16, DARKGRAY);
     DrawText("y presione validar", 28, 420+16*1, 16, DARKGRAY);
     DrawText("o simular.", 28, 420+16*2, 16, DARKGRAY);
@@ -124,10 +134,11 @@ void IState_Init(IState *state) {
     state->desplazamiento_y = 0.0f;
     state->estado_validacion = 0;
     state->estado_simulacion = 0;
+    state->dibujando = 0;
 }
 
 
-void I_Update(IState *state, ListaComponentes *componentesID) {
+void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *conexionesID) {
     if (state == NULL || componentesID == NULL) {
         return;
     }
@@ -171,22 +182,36 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
     Rectangle btnControlador = {25, 175, 170, 45};
     Rectangle btnBateria = {25, 235, 170, 45};
     Rectangle btnCarga = {25, 295, 170, 45};
-
+    Rectangle btnConvertidor = {25, 390, 170, 150};
+    Rectangle btnDibujar = {25, 560, 170, 45};
+    if (LeftClick(btnDibujar)) {
+        printf("Dibujar\n");
+        state->dibujando = 1;
+        if (state->dibujando) {
+            printf("Dibujando activado\n");
+            if (LeftClick(btnDibujar)) {
+                state->dibujando = 0;
+                printf("Dibujando desactivado\n");
+            }
+           
+    }
     if (LeftClick(btnPanel)) {
-        AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 100, 0, 0);
+        AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 0, 30, 0, 0, -1, -1);
     }
 
     if (LeftClick(btnControlador)) {
-        AgregarComponentes(componentesID, controlador, mouse.x, mouse.y, 12, 0, 0, 0);
+        AgregarComponentes(componentesID, controlador, mouse.x, mouse.y, 12, 120, 500, 0, 0, -1, -1);
     }
 
     if (LeftClick(btnBateria)) {
-        AgregarComponentes(componentesID, bateria, mouse.x, mouse.y, 12, 0, 5, 50);
+        AgregarComponentes(componentesID, bateria, mouse.x, mouse.y, 12, 0, 5, 2.2, 0, -1, -1);
     }
 
     if (LeftClick(btnCarga)) {
-        AgregarComponentes(componentesID, carga, mouse.x, mouse.y, 12, 60, 0, 0);
+        AgregarComponentes(componentesID, carga, mouse.x, mouse.y, 120, 60, 0, 0, 0, -1, -1);
     }
+    if (LeftClick(btnConvertidor)) {
+        AgregarComponentes(componentesID, convertidor, mouse.x, mouse.y, 12, 120, 500, 0, 0, -1, -1);
 
 
         for (int i = componentesID->cuenta - 1; i >= 0; i--) {
@@ -249,7 +274,7 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
 
 
 
-void I_Draw(const IState *state, const ListaComponentes *componentesID) {
+void I_Draw(const IState *state, const ListaComponentes *componentesID, const ListaConexiones *conexionesID) {
     if (state == NULL || componentesID == NULL) {
         return;
     }

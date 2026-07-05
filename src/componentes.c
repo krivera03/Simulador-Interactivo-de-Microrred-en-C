@@ -7,8 +7,8 @@ void Iniciar_ListaComponentes(ListaComponentes *lista) {
 }
 
 /*Agrega los componentes a la lista*/
-int AgregarComponentes(ListaComponentes *lista, TipoComponente tipo, float x, float y, float voltaje, float potencia, float capacidad_kWh,
-                        float estado_carga) 
+int AgregarComponentes(ListaComponentes *lista, TipoComponente tipo, float x, float y, float voltajeDC, float voltajeAC, float potencia, float capacidad_Ah,
+                        float estado_carga, float terminal_izquierda_id, float terminal_derecha_id) 
 {
     if (lista->cuenta >= MAX_COMPONENTES)
         return -1;
@@ -19,10 +19,13 @@ int AgregarComponentes(ListaComponentes *lista, TipoComponente tipo, float x, fl
     nuevoComponente->tipo = tipo;
     nuevoComponente->x = x;
     nuevoComponente->y = y;
-    nuevoComponente->voltaje = voltaje;
+    nuevoComponente->voltajeDC = voltajeDC;
+    nuevoComponente->voltajeAC = voltajeAC;
     nuevoComponente->potencia = potencia;
-    nuevoComponente->capacidad_kWh = capacidad_kWh;
+    nuevoComponente->capacidad_Ah = capacidad_Ah;
     nuevoComponente->estado_carga = estado_carga;
+    nuevoComponente->terminal_izquierda_id = terminal_izquierda_id;
+    nuevoComponente->terminal_derecha_id = terminal_derecha_id;
 
     lista->cuenta++;
 
@@ -56,6 +59,8 @@ const char *Buscar_ComponenteNombre(TipoComponente tipo)
 
     case controlador:
         return "Controlador";
+    case convertidor:
+        return "Convertidor";
     
     default:
         return "Desconocido";
