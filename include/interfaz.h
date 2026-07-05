@@ -5,10 +5,10 @@
 #include <stdio.h>
 typedef struct {
 
-    int selected_component_id;
-    int dragging;
-    float drag_offset_x;
-    float drag_offset_y;
+    int componente_seleccionado;
+    int arrastrando;
+    float desplazamiento_x;
+    float desplazamiento_y;
     int estado_validacion;
     int estado_simulacion;
 } IState; // Es la estructura que almacena estado de la interfaz

@@ -60,7 +60,7 @@ static void DrawComponente(const Componente *componente, int seleccionado) {
     DrawText(componente->Buscar_ComponenteNombre(componente->tipo), (int)componente->x + 12, (int)componente->y + 10, 18, DARKBLUE);
 
     char texto[96];
-    snprintf(texto, sizeof(texto), "V: %.0f V", componente->voltage);
+    snprintf(texto, sizeof(texto), "V: %.0f V", componente->voltaje);
     DrawText(texto, (int)componente->x + 12, (int)componente->y + 35, 16, DARKBLUE);
     switch (componente->tipo) {
     case 0: // panel_solar
