@@ -1,7 +1,7 @@
 #include "componentes.h"
 #include "interfaz.h"
 #define WIDTH 100
-#define HEIGHT 50
+#define HEIGHT 80
 
 
 static Vector2 Centro_Componente(const Componente *componente) { //retorna el centro del componente
@@ -45,10 +45,12 @@ static void DrawBoton(Rectangle rect, const char *text) { //Crea botones para va
     DrawText(text, (int)rect.x +HEIGHT/2.0f, (int)rect.y -HEIGHT/2.0f, 20, DARKBLUE);
 }
 
-static int RectClick(Rectangle rect) {
+static int LeftClick(Rectangle rect) {
     return IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), rect);
 }
-
+static int RightClick(Rectangle rect) {
+    return IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), rect);
+}
 
 static void DrawComponente(const Componente *componente) {
     Rectangle rect = Componente_Rect(componente);
@@ -61,7 +63,7 @@ static void DrawComponente(const Componente *componente) {
 
     char texto[96];
     snprintf(texto, sizeof(texto), "V: %.0f V", componente->voltaje);
-    DrawText(texto, (int)componente->x + 12, (int)componente->y + 35, 16, DARKBLUE);
+    DrawText(texto, (int)componente->x , (int)componente->y, 16, DARKBLUE);
     switch (componente->tipo) {
     case 0: // panel_solar
         snprintf(texto, sizeof(texto), "P gen: %.0f W", componente->potencia);
@@ -73,7 +75,7 @@ static void DrawComponente(const Componente *componente) {
         snprintf(texto, sizeof(texto), "Carga: %.0f W", componente->potencia);
         break;
     case 3: // controlador
-        snprintf(texto, sizeof(texto), "Controlador");
+        snprintf(texto, sizeof(texto), "Bat Load");
         break;
     
     default:
@@ -131,13 +133,13 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
     Rectangle boton_validar = {GetScreenWidth() - 130, GetScreenHeight() - 50, 130, 50};
     Rectangle boton_simular = {GetScreenWidth() - 130, GetScreenHeight() - 50*2, 130, 50};
     Rectangle boton_reiniciar = {GetScreenWidth() - 130, GetScreenHeight() - 50*3, 130, 50};
-    if (RectClick(boton_validar)) {
+    if (LeftClick(boton_validar)) {
         printf("Validar\n");
     }
-    if (RectClick(boton_simular)) {
+    if (LeftClick(boton_simular)) {
         printf("Simular\n");
     }
-    if (RectClick(boton_reiniciar)) {
+    if (LeftClick(boton_reiniciar)) {
         printf("Reiniciar caso\n");
     }
 /**
@@ -190,7 +192,7 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
             Rectangle rect = Componente_Rect(componente);
 
 
-            if (CheckCollisionPointRec(mouse, rect)) {
+            if (LeftClick(rect)) {
                 state->componente_seleccionado = componente->id;
                 state->arrastrando = 1;
                 state->desplazamiento_x = mouse.x - componente->x;
@@ -225,6 +227,21 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
         state->arrastrando = 0;
     }
 }
+    if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) {
+        for (int i = componentesID->cuenta - 1; i >= 0; i--) {
+            Componente *componente = &componentesID->componentes[i];
+            Rectangle rect = Componente_Rect(componente);
+
+            if (RightClick(rect)) {
+                // Eliminar el componente de la lista
+                for (int j = i; j < componentesID->cuenta - 1; j++) {
+                    componentesID->componentes[j] = componentesID->componentes[j + 1];
+                }
+                componentesID->cuenta--;
+                break;
+            }
+        }
+    }
 
 
 void I_Draw(const IState *state, const ListaComponentes *componentesID) {
