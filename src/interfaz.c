@@ -170,19 +170,19 @@ void I_Update(IState *state, ListaComponentes *componentesID) {
     Rectangle btnBateria = {25, 235, 180, 45};
     Rectangle btnCarga = {25, 295, 180, 45};
 
-    if (RectClick(btnPanel)) {
+    if (LeftClick(btnPanel)) {
         AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 100, 0, 0);
     }
 
-    if (RectClick(btnControlador)) {
+    if (LeftClick(btnControlador)) {
         AgregarComponentes(componentesID, controlador, mouse.x, mouse.y, 12, 0, 0, 0);
     }
 
-    if (RectClick(btnBateria)) {
+    if (LeftClick(btnBateria)) {
         AgregarComponentes(componentesID, bateria, mouse.x, mouse.y, 12, 0, 5, 50);
     }
 
-    if (RectClick(btnCarga)) {
+    if (LeftClick(btnCarga)) {
         AgregarComponentes(componentesID, carga, mouse.x, mouse.y, 12, 60, 0, 0);
     }
 
