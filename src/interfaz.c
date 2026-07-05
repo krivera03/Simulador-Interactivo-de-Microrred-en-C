@@ -308,7 +308,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
         }
     }
 
-    if (state->arrastrando || state->arrastrando_linea) && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+    if ((state->arrastrando || state->arrastrando_linea) && IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
         Componente *componente = Buscar_ComponenteID(componentesID, state->componente_seleccionado);
         if (componente != NULL) {
             ///////////////////////////////////////
