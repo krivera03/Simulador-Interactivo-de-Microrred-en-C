@@ -300,7 +300,7 @@ void I_Update(IState *state, ListaComponentes *componentesID, ListaConexiones *c
     if (!state->dibujando) {
        
         if (LeftClick(btnPanel)) {
-            AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 0, 30, 0, 0, -1, -1);
+            AgregarComponentes(componentesID, panel_solar, mouse.x, mouse.y, 12, 550, 0, 0, 0, -1, -1);
         }
 
         if (LeftClick(btnControlador)) {
