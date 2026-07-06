@@ -90,6 +90,12 @@ Para eliminar los archivos objeto y el ejecutable generado:
 make clean
 ```
 
+## Descripción del diseño del proyecto
+
+La descripción completa del diseño del sistema se encuentra en la Wiki del proyecto:
+
+[Wiki Microrred](https://github.com/krivera03/Simulador-Interactivo-de-Microrred-en-C/wiki)
+
 
 ## Autores
 
