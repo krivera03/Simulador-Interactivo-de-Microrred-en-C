@@ -67,6 +67,11 @@ make run
 
 Si la compilación es exitosa, se generará el archivo ejecutable del programa.
 
+4. Para revisión de fugas de memoria ejecutar:
+
+```bash
+make valgrind
+```
 
 ## Pasos para ejecutar
 
