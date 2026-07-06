@@ -6,16 +6,49 @@ Una microrred es una red eléctrica pequeña que genera y distribuye energía a 
 
 El presente proyecto consiste en desarrollar una aplicación interactiva en lenguaje C que permita simular la construcción de una microrred eléctrica aislada mediante una interfaz. El usuario podrá seleccionar y conectar diferentes componentes eléctricos, mientra el sistema verifica si la configuración realizada es válida según criterios básicos de funcionamiento de una microrred. 
 
-## Archivos principales
-
-- **main.c**: Contiene la función principal del programa y el menú de interacción.
-- **componentes.c / componentes.h**: Definición de las estructuras de los componentes y generación de la lista de componentes.
-- **Makefile**: Archivo que realiza la compilación del proyecto.
-- **README.md**: Documentación del proyecto.
-
 
 ## Dependencias e Instalación
+Antes de compilar el proyecto, asegurese de tener instaladas las siguientes dependencias:
 
+- Compilador GCC.
+- Raylib (version 6.1 o superior).
+- Utilidad `make`.
+- Sistema operativo Linux, macOS o Windows con MinGW/MSYS2 o WSL.
+
+## Instalación de Raylib
+
+### Ubuntu/Debian
+
+1. Abrir una terminal.
+2. Instalar herramientas requeridas:
+
+```bash
+sudo apt install build-essential git
+```
+3. Instalar librerías:
+
+```bash
+sudo apt install libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev libwayland-dev libxkbcommon-dev
+```
+
+### Windows con MinGW/W64/GCC
+
+1. Abrir en enlace: https://github.com/skeeto/w64devkit/
+2. Descargar el archivo w64devkit.zip.
+3. Descomprimir el archivo.
+4. Correr el archivo W64Devkit.exe
+
+### macOS
+
+1. Tener una Mac con OSX version 10.11.3.
+2. Instalar *Apple Developer Tools*.
+3. Instalar raylib library.
+
+Para más información sobre la instalación de Raylib, consultar la información oficial.
+- [Documentación Raylib](https://www.raylib.com/)
+- [Instalación GNU Linux](https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux)
+- [Instalación GNU Windows](https://github.com/raysan5/raylib/wiki/Working-on-Windows)
+- [Instalación GNU macOS](https://github.com/raysan5/raylib/wiki/Working-on-macOS)
 
 ## Pasos para compilar
 
@@ -34,10 +67,6 @@ make run
 
 Si la compilación es exitosa, se generará el archivo ejecutable del programa.
 
-4. Para revisión de fugas de memoria ejecutar:
-```bash
-make valgrind
-```
 
 ## Pasos para ejecutar
 
@@ -56,11 +85,6 @@ Para eliminar los archivos objeto y el ejecutable generado:
 make clean
 ```
 
-## Requisitos
-
-- Compilador GCC.
-- Utilidad `make`.
-- Sistema operativo Linux, macOS o Windows con MinGW/MSYS2 o WSL.
 
 ## Autores
 
